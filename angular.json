@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "batigo": {
+    "xtreme-admin-angular-lite": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,19 +17,25 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/batigo",
+            "allowedCommonJsDependencies": [
+              "ng-apexcharts",
+              "apexcharts"
+            ],
+            "outputPath": "dist/xtreme-admin-angular-lite",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/scss/style.scss",
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -34,7 +44,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "10mb",
                   "maximumError": "1mb"
                 },
                 {
@@ -60,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "batigo:build:production"
+              "browserTarget": "xtreme-admin-angular-lite:build:production"
             },
             "development": {
-              "browserTarget": "batigo:build:development"
+              "browserTarget": "xtreme-admin-angular-lite:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "batigo:build"
+            "browserTarget": "xtreme-admin-angular-lite:build"
           }
         },
         "test": {
@@ -82,12 +92,13 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
