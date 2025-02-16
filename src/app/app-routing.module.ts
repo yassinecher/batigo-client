@@ -1,30 +1,24 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './front/Home/home.component';
+import { SingInComponent } from './front/Authentication/sing-in/sing-in.component';
+import { DashboardComponent } from './back/dashboard/dashboard.component';
 
-import { FullComponent } from './layouts/full/full.component';
-
-export const Approutes: Routes = [
+const routes: Routes = [
   {
-    path: '',
-    component: FullComponent,
-    children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-      {
-        path: 'dashboard',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-      },
-      {
-        path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
-      },
-      {
-        path: 'component',
-        loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
-      }
-    ]
+    path:'',component:HomeComponent,
   },
   {
-    path: '**',
-    redirectTo: '/starter'
-  }
+    path:'login',component:SingInComponent
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./back/back.module').then(m => m.BackModule)
+  },
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

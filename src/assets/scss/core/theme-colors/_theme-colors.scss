@@ -21,8 +21,8 @@
     }
     .topbar .navbar-collapse,
     .topbar {
-      &[data-navbarbg="skin1"] {
-        background: $skin1;
+      &[data-navbarbg="skin5"] {
+        background: $skin5;
       }
     }
     /*This is for the sidebar bg*/
@@ -35,22 +35,14 @@
             .sidebar-item {
               &.active {
                 > .sidebar-link {
-                  color: $primary;
+                  color: $danger;
                   i {
-                    color: $primary;
+                    color: $danger;
                   }
                 }
               }
               .sidebar-link {
                 color: $sidebar-text-dark;
-                .feather {
-                  fill: rgba(41, 98, 255, 0.1);
-                }
-                &:hover {
-                  .feather {
-                    color: $primary;
-                  }
-                }
                 i {
                   color: $sidebar-icons-dark;
                 }
