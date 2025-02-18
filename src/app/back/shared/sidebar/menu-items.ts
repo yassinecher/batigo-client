@@ -11,7 +11,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/alert',
+    path: '/dashboard/component/alert',
     title: 'Alert',
     icon: 'bi bi-bell',
     class: '',
@@ -19,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/badges',
+    path: '/dashboard/component/badges',
     title: 'Badges',
     icon: 'bi bi-patch-check',
     class: '',
@@ -27,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/buttons',
+    path: '/dashboard/component/buttons',
     title: 'Button',
     icon: 'bi bi-hdd-stack',
     class: '',
@@ -35,7 +35,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/card',
+    path: '/dashboard/component/card',
     title: 'Card',
     icon: 'bi bi-card-text',
     class: '',
@@ -43,7 +43,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/dropdown',
+    path: '/dashboard/component/dropdown',
     title: 'Dropdown',
     icon: 'bi bi-menu-app',
     class: '',
@@ -51,7 +51,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/pagination',
+    path: '/dashboard/component/pagination',
     title: 'Pagination',
     icon: 'bi bi-dice-1',
     class: '',
@@ -59,7 +59,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/nav',
+    path: '/dashboard/component/nav',
     title: 'Nav',
     icon: 'bi bi-pause-btn',
     class: '',
@@ -67,7 +67,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/table',
+    path: '/dashboard/component/table',
     title: 'Table',
     icon: 'bi bi-layout-split',
     class: '',
