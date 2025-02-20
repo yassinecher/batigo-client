@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Update Livrable</h2>
+    <form [formGroup]="livrableForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="nom">Name</label>
+            <input type="text" id="nom" formControlName="nom" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="type">Type</label>
+            <input type="text" id="type" formControlName="type" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="statut">Status</label>
+            <select id="statut" formControlName="statut" class="form-control">
+                <option *ngFor="let statut of statuts" [value]="statut">{{ statut }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dateRemisePrevue">Expected Delivery Date</label>
+            <input type="date" id="dateRemisePrevue" formControlName="dateRemisePrevue" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="dateRemiseReelle">Actual Delivery Date</label>
+            <input type="date" id="dateRemiseReelle" formControlName="dateRemiseReelle" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="commentaire">Comment</label>
+            <textarea id="commentaire" formControlName="commentaire" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="projetId">Project ID</label>
+            <input type="number" id="projetId" formControlName="projetId" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="livrableForm.invalid">Update Livrable</button>
+    </form>
+</div>
