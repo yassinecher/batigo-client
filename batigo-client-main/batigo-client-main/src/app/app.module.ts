@@ -9,6 +9,9 @@ import { NavbarComponent } from './front/Shared/navbar/navbar.component';
 import { FooterComponent } from './front/Shared/footer/footer.component';
 import { DashboardComponent } from './back/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BackModule } from './back/back.module';
 
 @NgModule({
   declarations: [
@@ -17,11 +20,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SingInComponent,
     NavbarComponent,
     FooterComponent,
+    
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    NgbModule
+    BackModule,
+    NgbModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

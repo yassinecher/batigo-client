@@ -9,6 +9,12 @@ import { FeedsComponent } from "./dashboard-components/feeds/feeds.component";
 import { TopSellingComponent } from "./dashboard-components/top-selling/top-selling.component";
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
 import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards.component";
+import { CreatelivrableComponent } from './Gestiondeprojet/GestionLivable/createlivrable/createlivrable.component';
+import { LivrablelistComponent } from './Gestiondeprojet/GestionLivable/livrablelist/livrablelist.component';
+import { UpdatelivrableComponent } from './Gestiondeprojet/GestionLivable/updatelivrable/updatelivrable.component';
+import { BrowserModule } from "@angular/platform-browser";
+import { AppRoutingModule } from "../app-routing.module";
+
 
 const routes: Routes = [
   {
@@ -23,6 +29,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    AppRoutingModule,
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
@@ -35,7 +43,9 @@ const routes: Routes = [
     FeedsComponent,
     TopSellingComponent,
     TopCardsComponent,
-    BlogCardsComponent
+    BlogCardsComponent,
+    
+    
   ],
 })
 export class DashboardModule {}

@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Projet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +27,14 @@ public class Projet {
     private LocalDate dateDebut;
     private LocalDate dateFinPrevue;
     private BigDecimal budget;
-    private String etat;
+
+    @Enumerated(EnumType.STRING)
+    private Etat etat;
 
     @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Livrable> livrables = new ArrayList<>();
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
