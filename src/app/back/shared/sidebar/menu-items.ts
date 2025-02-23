@@ -11,6 +11,32 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: '/dashboard/accounts',
+    title: 'Financial accounts',
+    icon: 'bi bi-credit-card',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+   
+  {
+    path: '/dashboard/expense',
+    title: 'Expenses',
+    icon: 'bi bi-graph-down-arrow',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+   
+  {
+    path: '/dashboard/income',
+    title: 'Incomes',
+    icon: 'bi bi-graph-up-arrow',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/dashboard/component/alert',
     title: 'Alert',
     icon: 'bi bi-bell',

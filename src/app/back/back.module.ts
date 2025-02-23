@@ -10,6 +10,11 @@ import { FullComponent } from './layouts/full/full.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AppComponent } from '../app.component';
 import { NavigationComponent } from './shared/header/navigation.component';
+import { AccountComponent } from './account/account.component';
+import { ExpenseComponent } from './expense/index/index.component';
+import { IncomeComponent } from './income/index/index.component';
+import { NewIncomeComponent } from './income/new-income/new-income.component';
+import { NewAccountComponent } from './account/new-account/new-account.component';
 
 export const Approutes: Routes = [
   {
@@ -39,6 +44,11 @@ export const Approutes: Routes = [
 @NgModule({
   declarations: [
     SpinnerComponent,
+    AccountComponent,
+    ExpenseComponent,
+    IncomeComponent,
+    NewIncomeComponent,
+    NewAccountComponent
   ],
   imports: [
     
@@ -46,7 +56,7 @@ export const Approutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(Approutes),
-
+    CommonModule,
     FullComponent,
     NavigationComponent,
     SidebarComponent,

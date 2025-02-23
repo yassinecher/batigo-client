@@ -5,6 +5,7 @@
   "projects": {
     "batigo-frontEnd": {
       "projectType": "application",
+      
       "schematics":{
         "@schematics/angular:component": {
           "style": "scss"
@@ -106,5 +107,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

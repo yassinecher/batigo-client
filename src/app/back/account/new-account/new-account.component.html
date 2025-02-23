@@ -1,0 +1,51 @@
+<div class="container">
+    <h2>Add Account</h2>
+    <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Account Name</label>
+        <input
+          id="name"
+          type="text"
+          class="form-control"
+          formControlName="name"
+         />
+        <div   class="invalid-feedback">
+          <div  >Name is required.</div>
+          <div  >Name must be at least 3 characters long.</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="balance">Balance</label>
+        <input
+          id="balance"
+          type="number"
+          class="form-control"
+          formControlName="balance"
+          
+        />
+        <div class="invalid-feedback">
+          <div  >Balance is required.</div>
+          <div  >Balance cannot be negative.</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="type">Account Type</label>
+        <select
+          id="type"
+          class="form-control"
+          formControlName="type"
+         >
+          <option value="">Select Type</option>
+          <option value="BANK">Bank</option>
+          <option value="POST">Post</option>
+          <option value="WALLET">Wallet</option>
+        </select>
+       
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="accountForm.invalid">Submit</button>
+    </form>
+  </div>
+  
