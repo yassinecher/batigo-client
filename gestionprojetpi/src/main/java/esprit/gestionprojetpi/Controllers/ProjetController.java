@@ -2,85 +2,84 @@ package esprit.gestionprojetpi.Controllers;
 
 import esprit.gestionprojetpi.Entities.Projet;
 import esprit.gestionprojetpi.Services.ProjetService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-@Slf4j
+import java.util.Optional;
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/projets")
-@AllArgsConstructor
-@CrossOrigin("*") // Allow all origins (for frontend testing)
 public class ProjetController {
 
     @Autowired
     private ProjetService projetService;
 
-    @Operation(summary = "Create a new project", description = "Saves a new project in the database.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Project created successfully",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Projet.class))})
-    })
-    @PostMapping("/creer")
-    public Projet creerProjet(@RequestBody Projet projet) {
-        return projetService.creerProjet(projet);
+    // Create or update a project
+    @PostMapping
+    public ResponseEntity<Projet> saveProjet(@RequestBody Projet projet) {
+        return ResponseEntity.ok(projetService.saveProjet(projet));
     }
 
-    @Operation(summary = "List all projects", description = "Returns a list of all projects.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "List of projects",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Projet.class))})
-    })
-    @GetMapping("/lister")
-    public List<Projet> listerProjets() {
-        return projetService.listerProjets();
+    // Get all approved projects for front office
+    @GetMapping
+    public ResponseEntity<List<Projet>> getApprovedProjects() {
+        return ResponseEntity.ok(projetService.getApprovedProjets());
     }
 
-    @Operation(summary = "Get a project by ID", description = "Fetches details of a project by its ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Project found",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Projet.class))}),
-            @ApiResponse(responseCode = "404", description = "Project not found")
-    })
-    @GetMapping("/obtenir/{id}")
-    public ResponseEntity<Projet> obtenirProjetParId(@PathVariable Long id) {
-        return projetService.obtenirProjetParId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    // Get all projects (approved + pending) for backoffice
+    @GetMapping("/all")
+    public ResponseEntity<List<Projet>> getAllProjects() {
+        return ResponseEntity.ok(projetService.getAllProjets());
     }
 
-    @Operation(summary = "Update a project", description = "Updates project details by ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Project updated",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Projet.class))}),
-            @ApiResponse(responseCode = "404", description = "Project not found")
-    })
-    @PutMapping("/mettreAJour/{id}")
-    public Projet mettreAJourProjet(@PathVariable Long id, @RequestBody Projet projet) {
-        return projetService.mettreAJourProjet(id, projet);
+    // Get only pending projects for admin approval
+    @GetMapping("/pending")
+    public ResponseEntity<List<Projet>> getPendingProjects() {
+        return ResponseEntity.ok(projetService.getPendingProjets());
     }
 
-    @Operation(summary = "Delete a project", description = "Deletes a project by its ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Project deleted"),
-            @ApiResponse(responseCode = "404", description = "Project not found")
-    })
-    @DeleteMapping("/supprimer/{id}")
-    public ResponseEntity<?> supprimerProjet(@PathVariable Long id) {
-        projetService.supprimerProjet(id);
+    // Get archived projects
+    @GetMapping("/archived")
+    public ResponseEntity<List<Projet>> getArchivedProjects() {
+        return ResponseEntity.ok(projetService.getArchivedProjets());
+    }
+
+    // Get a project by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Projet>> getProjetById(@PathVariable Long id) {
+        return ResponseEntity.ok(projetService.getProjetById(id));
+    }
+
+    // Approve a project (Admin Only)
+    @PutMapping("/{id}/approve")
+    public ResponseEntity<Projet> approveProjet(@PathVariable Long id) {
+        return ResponseEntity.ok(projetService.approveProjet(id));
+    }
+
+    // Update a project
+    @PutMapping("/{id}")
+    public ResponseEntity<Projet> updateProjet(@PathVariable Long id, @RequestBody Projet updatedProjet) {
+        return ResponseEntity.ok(projetService.updateProjet(id, updatedProjet));
+    }
+
+    // Archive a project
+    @PutMapping("/{id}/archive")
+    public ResponseEntity<Projet> archiveProjet(@PathVariable Long id) {
+        return ResponseEntity.ok(projetService.archiveProjet(id));
+    }
+
+    // Unarchive a project
+    @PutMapping("/{id}/unarchive")
+    public ResponseEntity<Projet> unarchiveProjet(@PathVariable Long id) {
+        return ResponseEntity.ok(projetService.unarchiveProjet(id));
+    }
+
+    // Delete a project
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProjet(@PathVariable Long id) {
+        projetService.deleteProjet(id);
         return ResponseEntity.noContent().build();
     }
 }

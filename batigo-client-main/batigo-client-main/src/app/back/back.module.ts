@@ -7,6 +7,8 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AppComponent } from '../app.component';
 import { NavigationComponent } from './shared/header/navigation.component';
 import { SpinnerComponent } from './shared/spinner.component';
+import { AdminApproveComponent } from './dashboard/projet-admin/admin-approve/admin-approve.component';
+import { AdminLivrableComponent } from './dashboard/livrable-admin/admin-livrable/admin-livrable.component';
 
 export const Approutes: Routes = [
   {
@@ -25,30 +27,9 @@ export const Approutes: Routes = [
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
       },
-      {
-        path: 'create',
-        loadChildren: () => import('../dashboard/Gestiondeprojet/GestionProjet/creation-form/creation-form.module').then(m => m.CreationFormModule)
-      },
-      {
-        path: 'projects',
-        loadChildren: () => import('../dashboard/Gestiondeprojet/GestionProjet/projetlist/projetlist.module').then(m => m.ProjetListModule)
-      },
-      {
-        path: 'update/:id',
-        loadChildren: () => import('../dashboard/Gestiondeprojet/GestionProjet/projetupdate/projetupdate.module').then(m => m.ProjetupdateModule)
-      },
-      {
-        path: 'createlivrable',
-        loadChildren: () => import('../dashboard/Gestiondeprojet/GestionLivable/createlivrable/createlivrable.module').then(m => m.CreatelivrableModule)
-      },
-      {
-        path: 'livrablelist',
-        loadChildren: () => import('../dashboard/Gestiondeprojet/GestionLivable/livrablelist/livrablelist.module').then(m => m.LivrableListModule)
-      },
-      {
-        path: 'update-livrable/:id',
-        loadChildren: () => import('../dashboard/Gestiondeprojet/GestionLivable/updatelivrable/updatelivrable.module').then(m => m.UpdatelivrableModule)
-      },
+      { path: 'approve-projects', component: AdminApproveComponent },
+      { path: 'livrable-admin', component: AdminLivrableComponent },
+
     ]
   },
   {

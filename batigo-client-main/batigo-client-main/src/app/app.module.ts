@@ -12,6 +12,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BackModule } from './back/back.module';
+import { CreateprojetComponent } from './front/Projet/createprojet/createprojet.component';
+import { ViewprojetComponent } from './front/Projet/viewprojet/viewprojet.component';
+import { UpdateprojetComponent } from './front/Projet/updateprojet/updateprojet.component';
+import { Router } from '@angular/router';
+import { CreatelivrableComponent } from './front/Livrable/createlivrable/createlivrable.component';
+import { ViewlivrableComponent } from './front/Livrable/viewlivrable/viewlivrable.component';
+import { UpdatelivrableComponent } from './front/Livrable/updatelivrable/updatelivrable.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -20,6 +28,12 @@ import { BackModule } from './back/back.module';
     SingInComponent,
     NavbarComponent,
     FooterComponent,
+    CreateprojetComponent,
+    ViewprojetComponent,
+    UpdateprojetComponent,
+    CreatelivrableComponent,
+    ViewlivrableComponent,
+    UpdatelivrableComponent,
     
   ],
   imports: [
@@ -28,7 +42,9 @@ import { BackModule } from './back/back.module';
     AppRoutingModule,
     BackModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule,
+  
   ],
   providers: [],
   bootstrap: [AppComponent]
