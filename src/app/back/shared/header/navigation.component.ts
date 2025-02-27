@@ -117,4 +117,8 @@ export class NavigationComponent implements AfterViewInit {
   }]
 
   ngAfterViewInit() { }
+  logout(){
+    localStorage.removeItem("access_token")
+    window.location.href="/"
+  }
 }
