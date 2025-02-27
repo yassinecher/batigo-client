@@ -11,73 +11,30 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/dashboard/component/alert',
-    title: 'Alert',
-    icon: 'bi bi-bell',
+    path: '/task',
+    title: 'Task',
+    icon: 'bi bi-list-task',
     class: '',
     extralink: false,
-    submenu: []
-  },
-  {
-    path: '/dashboard/component/badges',
-    title: 'Badges',
-    icon: 'bi bi-patch-check',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/dashboard/component/buttons',
-    title: 'Button',
-    icon: 'bi bi-hdd-stack',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/dashboard/component/card',
-    title: 'Card',
-    icon: 'bi bi-card-text',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/dashboard/component/dropdown',
-    title: 'Dropdown',
-    icon: 'bi bi-menu-app',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/dashboard/component/pagination',
-    title: 'Pagination',
-    icon: 'bi bi-dice-1',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/dashboard/component/nav',
-    title: 'Nav',
-    icon: 'bi bi-pause-btn',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/dashboard/component/table',
-    title: 'Table',
-    icon: 'bi bi-layout-split',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/about',
-    title: 'About',
-    icon: 'bi bi-people',
+    submenu: [{
+      path: '/task/list',
+      title: 'Task List',
+      icon: 'bi bi-view-list',
+      class: '',
+      extralink: false,
+      submenu: []
+    }, {
+      path: '/task/new',
+      title: 'New Task',
+      icon: 'bi bi-plus-circle-dotted',
+      class: '',
+      extralink: false,
+      submenu: []
+    }]
+  }, {
+    path: '/users',
+    title: 'Users',
+    icon: 'bi bi-person',
     class: '',
     extralink: false,
     submenu: []

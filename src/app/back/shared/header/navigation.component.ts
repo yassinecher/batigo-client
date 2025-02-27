@@ -1,20 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/back/users/data-access/User.model';
+import { UserService } from 'src/app/back/users/data-access/user.service';
 
 declare var $: any;
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports:[NgbDropdownModule],
+  imports:[NgbDropdownModule,CommonModule],
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
   @Output() toggleSidebar = new EventEmitter<void>();
 
   public showSearch = false;
-
-  constructor(private modalService: NgbModal) {
+  user!:User
+  constructor(private modalService: NgbModal,userService:UserService) {
+    userService.getUserFromDatabase().subscribe((user)=>{
+      this.user=user
+    })
   }
 
   // This is for Notifications

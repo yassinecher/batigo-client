@@ -9,9 +9,10 @@ import { NavbarComponent } from './front/Shared/navbar/navbar.component';
 import { FooterComponent } from './front/Shared/footer/footer.component';
 import { DashboardComponent } from './back/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ErrorModalComponent } from './front/Shared/error-modal/error-modal.component';
+import { SuccessModalComponent } from './front/Shared/success-modal/success-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,13 +20,14 @@ import { HttpClientModule } from '@angular/common/http';
     SingInComponent,
     NavbarComponent,
     FooterComponent,
+    ErrorModalComponent,
+    SuccessModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
-    FormsModule,HttpClientModule
-  ],
+    NgbModule,ReactiveFormsModule,
+    FormsModule,HttpClientModule,   ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -36,12 +36,12 @@
 <!-- ============================================================== -->
 <!-- Right side toggle and nav items -->
 <!-- ============================================================== -->
-<ul class="navbar-nav float-end">
+<ul  class="navbar-nav float-end">
   <!-- ============================================================== -->
   <!-- User profile and search -->
   <!-- ============================================================== -->
-  <li class="nav-item" ngbDropdown placement="bottom-end">
-    <a
+  <li  class="nav-item" ngbDropdown placement="bottom-end">
+    <a *ngIf="user"
       ngbDropdownToggle
       class="nav-link waves-effect waves-dark pro-pic"
       href="javascript:void(0)"
@@ -50,12 +50,12 @@
       aria-expanded="false"
     >
       <img
-        src="assets/images/users/user4.jpg"
+        [src]="user.profilePicture"
         alt="user"
         class="rounded-circle"
         width="31"
       />
-      <span class="ms-2">John Deo</span>
+      <span class="ms-2">{{user.firstname}}</span>
     </a>
     <div class="dropdown-menu-right" ngbDropdownMenu>
       <a class="dropdown-item" href="javascript:void(0)"> My Profile</a>

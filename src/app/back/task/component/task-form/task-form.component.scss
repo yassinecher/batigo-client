@@ -1,0 +1,21 @@
+.form-group{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+}
+.form-group label{
+    font-weight: 500;
+    color: black ;
+    padding-bottom: 5px;
+
+}
+.form-group .error{
+    display: flex;
+    flex-direction: column;
+
+}
+.error{
+ width: auto;
+ padding-top: 5px;
+
+}

@@ -10,6 +10,7 @@ import { FullComponent } from './layouts/full/full.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AppComponent } from '../app.component';
 import { NavigationComponent } from './shared/header/navigation.component';
+import { UserListComponent } from './users/components/user-list/user-list.component';
 
 export const Approutes: Routes = [
   {
@@ -28,7 +29,8 @@ export const Approutes: Routes = [
       {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
-      }
+      },
+   
     ]
   },
   {
@@ -39,17 +41,18 @@ export const Approutes: Routes = [
 @NgModule({
   declarations: [
     SpinnerComponent,
+    
   ],
   imports: [
     
     
-    FormsModule,
-    ReactiveFormsModule,
+ 
     RouterModule.forChild(Approutes),
 
     FullComponent,
     NavigationComponent,
-    SidebarComponent,
+    SidebarComponent,   FormsModule,
+    ReactiveFormsModule,CommonModule
   ],
   providers: [
     {
