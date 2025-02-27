@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+<div class="container py-5">
+    <div class="section-title text-center">
+        <h1 class="display-4 text-primary">Modifier Livrable</h1>
+        <p class="lead">Mettre à jour les détails du livrable</p>
+    </div>
+
+    <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
+        {{ errorMessage }}
+    </div>
+
+    <form *ngIf="!isLoading && !errorMessage" [formGroup]="livrableForm" (ngSubmit)="onSubmit()" class="livrable-form">
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom</label>
+            <input id="nom" type="text" class="form-control" formControlName="nom" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="type" class="form-label">Type</label>
+            <input id="type" type="text" class="form-control" formControlName="type" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="statut" class="form-label">Statut</label>
+            <select id="statut" class="form-control" formControlName="statut">
+                <option value="EN_COURS">En Cours</option>
+                <option value="TERMINE">Terminé</option>
+                <option value="EN_ATTENTE">En Attente</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="dateRemisePrevue" class="form-label">Date Remise Prévue</label>
+            <input id="dateRemisePrevue" type="date" class="form-control" formControlName="dateRemisePrevue" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="dateRemiseReelle" class="form-label">Date Remise Réelle</label>
+            <input id="dateRemiseReelle" type="date" class="form-control" formControlName="dateRemiseReelle">
+        </div>
+
+        <div class="mb-3">
+            <label for="commentaire" class="form-label">Commentaire</label>
+            <textarea id="commentaire" class="form-control" formControlName="commentaire"></textarea>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-save"></i> Mettre à Jour
+            </button>
+            <button type="button" class="btn btn-secondary ms-2" routerLink="/viewlivrable">
+                <i class="fas fa-times "></i> Annuler
+            </button>
+        </div>
+    </form>
+</div>
+<app-footer></app-footer>

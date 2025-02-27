@@ -1,0 +1,58 @@
+<div class="container py-5">
+    <h2 class="text-center mb-4">Pending & Approved Projects</h2>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p>Loading projects...</p>
+    </div>
+
+    <!-- Table for Projects -->
+    <div class="table-responsive">
+        <table *ngIf="!loading && projets.length > 0" class="table table-hover table-bordered text-center shadow-sm">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Budget</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let projet of projets">
+                    <td class="fw-bold">{{ projet.nom }}</td>
+                    <td>{{ projet.etat }}</td>
+                    <td>{{ projet.description }}</td>
+                    <td>{{ projet.dateDebut }}</td>
+                    <td>{{ projet.dateFinPrevue || 'N/A' }}</td>
+                    <td>${{ projet.budget | number }}</td>
+                    <td>
+                        <span class="badge" [ngClass]="{
+                            'bg-danger': !projet.approved,
+                            'bg-success': projet.approved
+                        }">
+                            {{ projet.approved ? 'Approved' : 'Pending' }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm mx-1 btn-outline-success" (click)="approveProjet(projet)" [disabled]="projet.approved">
+                            <i class="fas" [ngClass]="projet.approved ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                            {{ projet.approved ? 'Approved' : 'Approve' }}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Projects Message -->
+    <div *ngIf="!loading && projets.length === 0" class="text-center mt-4">
+        <div class="alert alert-info shadow-sm">
+            <i class="fas fa-info-circle"></i> No projects available.
+        </div>
+    </div>
+</div>

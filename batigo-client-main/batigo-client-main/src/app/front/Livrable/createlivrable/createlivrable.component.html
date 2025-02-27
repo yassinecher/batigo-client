@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+
+<div class="create-livrable-container">
+    <h2>Add New Livrable to Project #{{ projetId }}</h2>
+
+    <form [formGroup]="livrableForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="nom">Name</label>
+            <input type="text" id="nom" formControlName="nom" class="form-control" />
+            <div *ngIf="livrableForm.get('nom')?.invalid && livrableForm.get('nom')?.touched" class="text-danger">
+                Name is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Type</label>
+            <input type="text" id="type" formControlName="type" class="form-control" />
+            <div *ngIf="livrableForm.get('type')?.invalid && livrableForm.get('type')?.touched" class="text-danger">
+                Type is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="statut">Status</label>
+            <select id="statut" formControlName="statut" class="form-control">
+                <option *ngFor="let statut of statutOptions" [value]="statut">{{ statut }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="dateRemisePrevue">Expected Delivery Date</label>
+            <input type="date" id="dateRemisePrevue" formControlName="dateRemisePrevue" class="form-control" />
+            <div *ngIf="livrableForm.get('dateRemisePrevue')?.invalid && livrableForm.get('dateRemisePrevue')?.touched" class="text-danger">
+                Expected delivery date is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dateRemiseReelle">Actual Delivery Date</label>
+            <input type="date" id="dateRemiseReelle" formControlName="dateRemiseReelle" class="form-control" />
+            <div *ngIf="livrableForm.hasError('dateInvalid')" class="text-danger">
+                Actual delivery date must be after the expected delivery date.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="commentaire">Comment</label>
+            <textarea id="commentaire" formControlName="commentaire" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="livrableForm.invalid">Add Livrable</button>
+    </form>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+<div class="view-projets-container container py-4">
+    <h2 class="text-center my-4">Project Management</h2>
+
+    <!-- Toggle Active/Archived Projects -->
+    <div class="text-center mb-4">
+        <button class="btn btn-info" (click)="toggleArchivedView()">
+            {{ showArchived ? 'View Active Projects' : 'View Archived Projects' }}
+        </button>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="loading text-center">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p>Loading projects...</p>
+    </div>
+
+    <!-- Active Projects -->
+    <div *ngIf="!loading && !showArchived" class="row">
+        <div class="col-md-4 mb-4" *ngFor="let projet of projets | paginate: { itemsPerPage: itemsPerPage, currentPage: activePage }">
+            <div class="card status-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ projet.nom }}</h5>
+                    <span class="status-badge" [ngClass]="{
+                        'status-en-cours': projet.etat === 'EN_COURS',
+                        'status-termine': projet.etat === 'TERMINE',
+                        'status-annule': projet.etat === 'ANNULE'
+                    }">
+                        {{ projet.etat.replace('_', ' ') }}
+                    </span>
+                    <div class="d-flex flex-column mt-3">
+                        <button class="btn btn-primary" (click)="downloadPdf(projet.id!, projet.nom)">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button class="btn btn-warning mt-2" routerLink="/updateproject/{{ projet.id }}">
+                            <i class="fas fa-edit"></i> Update
+                        </button>
+                        <button class="btn btn-danger mt-2" (click)="archiveProjet(projet.id!)">
+                            <i class="fas fa-archive"></i> Archive
+                        </button>
+                        <button class="btn btn-success mt-2" routerLink="/projets/{{ projet.id }}/add-livrable">
+                            <i class="fas fa-plus"></i> Add Livrable
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pagination-controls (pageChange)="activePage = $event"></pagination-controls>
+    </div>
+
+    <!-- Archived Projects -->
+    <div *ngIf="showArchived" class="row">
+        <div class="col-md-4 mb-4" *ngFor="let projet of archivedProjets | paginate: { itemsPerPage: itemsPerPage, currentPage: archivedPage }">
+            <div class="card status-card archived-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ projet.nom }}</h5>
+                    <span class="status-badge status-archived">ARCHIVED</span>
+                    <div class="d-flex flex-column mt-3">
+                        <button class="btn btn-primary" (click)="downloadPdf(projet.id!, projet.nom)">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button class="btn btn-secondary mt-2" (click)="unarchiveProjet(projet.id!)">
+                            <i class="fas fa-undo"></i> Unarchive
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pagination-controls (pageChange)="archivedPage = $event"></pagination-controls>
+    </div>
+
+    <div class="text-center my-4">
+        <button type="button" class="btn btn-primary" routerLink="/createproject">
+            <i class="fas fa-plus"></i> Create Project
+        </button>
+    </div>
+</div>
+<app-footer></app-footer>
