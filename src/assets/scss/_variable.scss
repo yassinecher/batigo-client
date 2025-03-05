@@ -1,7 +1,7 @@
 // 
 // Custom layout variables
 // 
-@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800");
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,300,600,700");
 
 // 
 // Theme Global setting colors
@@ -12,11 +12,7 @@ $themecolor-alt: #26c6da;
 $theme-light: #fff;
 $theme-dark: #212529;
 
-$skin1: #2962ff;
-$skin2: #fe5419;
-$skin3: #00b0ff;
-$skin4: #6659f7;
-$skin5: #414755;
+$skin5: #272c33;
 $skin6: #fff;
 
 // 
@@ -59,34 +55,38 @@ $transparent-dark-bg: rgba(0, 0, 0, 0.05);
 // Bootstrap override colors
 // 
 $white: #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
+$gray-100: #f3f5f7 !default;
+$gray-200: #f3f5f7 !default;
+$gray-300: #a6b7bf !default;
 $gray-400: #ced4da !default;
-$gray-500: #a1aab2 !default;
-$gray-600: #6c757d !default;
+$gray-500: #98a6ad !default;
+$gray-600: #cccccc !default;
 $gray-700: #4f5467 !default;
-$gray-800: #343a40 !default;
+$gray-800: #2b2b2b !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
 
-$blue: #2962ff !default;
-$indigo: #3699ff !default;
+$blue: #03a9f3 !default;
+$indigo: #6610f2 !default;
 $purple: #7460ee !default;
 $pink: #e83e8c !default;
-$red: #f64e60 !default;
+$red: #fb9678 !default;
 $orange: #fb8c00 !default;
-$yellow: #ee9d01 !default;
-$green: #0bb7af !default;
+$yellow: #fec107 !default;
+$green: #00c292 !default;
 $teal: #20c997 !default;
 $cyan: #4fc3f7 !default;
-$text-muted: #757e85 !default;
+$primary: #7460ee !default;
+$inverse: #4c5667 !default;
 
-$light-info: #e1f0ff !default;
-$light-primary: #d3edfa !default;
-$light-warning: #f8ecdc !default;
-$light-danger: #f8dddd !default;
-$light-success: #d5f3f2 !default;
+$light-danger: #f9e7eb;
+$light-success: #e8fdeb;
+$light-warning: #fff8ec;
+$light-primary: #f1effd;
+$light-info: #cfecfe;
+$light-inverse: #f6f6f6;
+$light-megna: #e0f2f4;
+$light-secondary: #f1f1f1 !default;
 
 $colors: (
   "blue": $blue,
@@ -132,6 +132,7 @@ $theme-colors: map-merge(
     "orange": $orange,
     "purple": $purple,
     "light-primary": $light-primary,
+    "light-secondary": $light-secondary,
     "light-info": $light-info,
     "light-warning": $light-warning,
     "light-danger": $light-danger,
@@ -157,28 +158,31 @@ $enable-negative-margins: true;
 // Body
 // 
 $main-body-bg: #fff !default;
-$body-bg: #eef5f9;
-$body-color: #3e5569 !default;
+$body-bg: #edf1f5;
+$body-color: #686868 !default;
 $grid-gutter-width: 30px !default;
 
 // 
 // Typography
 // 
 $font-size-base: 1rem;
-$font-family-sans-serif: "Nunito Sans", sans-serif !default;
+$font-family-sans-serif: "Poppins", sans-serif !default;
 $font-weight-light: 300 !default;
 $font-weight-normal: 400 !default;
 $font-weight-medium: 600 !default;
 $fw-bold: 800 !default;
+
 $h1-font-size: 36px !default;
 $h2-font-size: 30px !default;
 $h3-font-size: 24px !default;
 $h4-font-size: 18px !default;
 $h5-font-size: 16px !default;
 $h6-font-size: 14px !default;
+
+
 $headings-margin-bottom: 8px !default;
-$headings-font-weight: 700 !default;
-$headings-color: #1e2a35 !default;
+$headings-font-weight: 400 !default;
+$headings-color: #2b2b2b !default;
 
 // Font size
 $font-sizes: (
@@ -205,9 +209,10 @@ $display-font-sizes: (
 // Cards
 // 
 $card-border-width: 0px !default;
-$card-border-color: transparent !default;
-$card-border-radius: 4px !default;
-$card-box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%) !default;
+$card-border-color: #d7dfe3 !default;
+$card-border-radius: 0px !default;
+$card-spacer-y: 1.25rem !default;
+$card-spacer-x: 1.25rem !default;
 
 // 
 // Buttons

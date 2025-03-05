@@ -1,0 +1,163 @@
+<app-navbar></app-navbar>
+<div class=" ">
+  <div class="row g-0"
+    style="background-image:url('/assets/img/background-login.jpg') ; background-size: contain; background-repeat: no-repeat;">
+    <div class="col-md-7 d-flex">
+    </div>
+    <div class="container col-md-5 my-5">
+      <ul class="nav nav-pills nav-justified mb-3" id="authTabs">
+        <li class="nav-item">
+          <button class="nav-link active" id="tab-login" data-bs-toggle="pill" data-bs-target="#pills-login"
+            type="button">
+            Login
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" id="tab-register" data-bs-toggle="pill" data-bs-target="#pills-register"
+            type="button">
+            Register
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- Login Tab -->
+        <div class="tab-pane fade show active" id="pills-login">
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Email</label>
+              <input formControlName="email" type="email" id="loginEmail" class="form-control" />
+              <small class="text-danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                Email is required and must be valid.
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Password</label>
+              <input formControlName="password" type="password" id="loginPassword" class="form-control" />
+              <small class="text-danger"
+                *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                Password must be at least 6 characters.
+              </small>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="loginForm.invalid">Sign in</button>
+          </form>
+        </div>
+
+        <!-- Register Tab -->
+        <div class="tab-pane fade" id="pills-register">
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="row">
+              <div class="col mb-3">
+                <label for="registerFirstName" class="form-label">First Name</label>
+                <input formControlName="firstName" type="text" id="registerFirstName" class="form-control" />
+                <small class="text-danger"
+                  *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+                  First name is required.
+                </small>
+              </div>
+
+              <div class="col mb-3">
+                <label for="registerLastName" class="form-label">Last Name</label>
+                <input formControlName="lastName" type="text" id="registerLastName" class="form-control" />
+                <small class="text-danger"
+                  *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+                  Last name is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="registerEmail" class="form-label">Email</label>
+              <input formControlName="email" type="email" id="registerEmail" class="form-control" />
+              <small class="text-danger"
+                *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                Email is required and must be valid.
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label for="registerPhoneNumber" class="form-label">Phone Number</label>
+              <input formControlName="phoneNumber" type="text" id="registerPhoneNumber" class="form-control" />
+              <small class="text-danger"
+                *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched">
+                Phone number must be between 8 and 15 digits.
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label for="registerGender" class="form-label">Gender</label>
+              <select formControlName="gender" id="registerGender" class="form-control">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+
+              </select>
+              <small class="text-danger"
+                *ngIf="registerForm.get('gender')?.invalid && registerForm.get('gender')?.touched">
+                Gender is required.
+              </small>
+            </div>
+            <!-- Password Field -->
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Password</label>
+              <input formControlName="password" type="password" id="registerPassword" class="form-control" />
+              <small class="text-danger"
+                *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                Password must be at least 6 characters.
+              </small>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="mb-3">
+              <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
+              <input formControlName="confirmPassword" type="password" id="registerConfirmPassword"
+                class="form-control" />
+              <small class="text-danger"
+                *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+                Passwords do not match.
+              </small>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Account Created</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Your account has been created! Please wait for admin confirmation.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="redirectToLogin()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Registration Failed</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        An error occurred during registration. Please try again later.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

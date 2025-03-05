@@ -1,51 +1,37 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  CommonModule, LocationStrategy,
-  PathLocationStrategy
-} from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Routes, RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { FullComponent } from './layouts/full/full.component';
-
-
-import { NavigationComponent } from './shared/header/navigation.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-
-import { Approutes } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SpinnerComponent } from './shared/spinner.component';
-
-
+import { HomeComponent } from './front/Home/home.component';
+import { SingInComponent } from './front/Authentication/sing-in/sing-in.component';
+import { NavbarComponent } from './front/Shared/navbar/navbar.component';
+import { FooterComponent } from './front/Shared/footer/footer.component';
+import { DashboardComponent } from './back/dashboard/dashboard.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ErrorModalComponent } from './front/Shared/error-modal/error-modal.component';
+import { SuccessModalComponent } from './front/Shared/success-modal/success-modal.component';
+import { CommandeComponent } from './back/commande/commande.component';
+import { LivraisonComponent } from './back/livraison/livraison.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent,
+    HomeComponent,
+    SingInComponent,
+    NavbarComponent,
+    FooterComponent,
+    ErrorModalComponent,
+    SuccessModalComponent,
+    
   ],
   imports: [
-    CommonModule,
     BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgbModule,
-    RouterModule.forRoot(Approutes, { useHash: false }),
-    FullComponent,
-    NavigationComponent,
-    SidebarComponent,
-  ],
-  providers: [
-    {
-      provide: LocationStrategy,
-      useClass: PathLocationStrategy
-    },
-  ],
+    AppRoutingModule,
+    NgbModule,ReactiveFormsModule,
+    FormsModule,HttpClientModule,   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
