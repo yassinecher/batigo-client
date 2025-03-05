@@ -30,28 +30,6 @@ export const ROUTES: RouteInfo[] = [
   },
  {
 
-    path: '/task',
-    title: 'Task',
-    icon: 'bi bi-list-task',
-    class: '',
-    extralink: false,
-    submenu: [{
-      path: '/task/list',
-      title: 'Task List',
-      icon: 'bi bi-view-list',
-      class: '',
-      extralink: false,
-      submenu: []
-    }, {
-      path: '/task/new',
-      title: 'New Task',
-      icon: 'bi bi-plus-circle-dotted',
-      class: '',
-      extralink: false,
-      submenu: []
-    }]
-  }, {
-
     path: '/users',
     title: 'Users',
     icon: 'bi bi-person',
