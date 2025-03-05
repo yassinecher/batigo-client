@@ -11,8 +11,10 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AppComponent } from '../app.component';
 import { NavigationComponent } from './shared/header/navigation.component';
 import { UserListComponent } from './users/components/user-list/user-list.component';
+
 import { LivraisonComponent } from './livraison/livraison.component';
 import { CommandeComponent } from './commande/commande.component';
+
 
 export const Approutes: Routes = [
   {
@@ -23,7 +25,9 @@ export const Approutes: Routes = [
       {
         path: '',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+
       }, 
+
       {
         path: 'about',
         loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
@@ -33,8 +37,10 @@ export const Approutes: Routes = [
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
       },
    
+
      { path: 'commande', component: CommandeComponent },
      { path: 'livraison', component: LivraisonComponent },
+
     ]
   },
   {
@@ -45,7 +51,9 @@ export const Approutes: Routes = [
 @NgModule({
   declarations: [
     SpinnerComponent,
+
     CommandeComponent,LivraisonComponent
+
   ],
   imports: [
     
@@ -56,7 +64,8 @@ export const Approutes: Routes = [
     FullComponent,
     NavigationComponent,
     SidebarComponent,   FormsModule,
-    ReactiveFormsModule,CommonModule,
+    ReactiveFormsModule,CommonModule
+
   ],
   providers: [
     {

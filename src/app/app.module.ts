@@ -13,8 +13,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorModalComponent } from './front/Shared/error-modal/error-modal.component';
 import { SuccessModalComponent } from './front/Shared/success-modal/success-modal.component';
+
 import { CommandeComponent } from './back/commande/commande.component';
 import { LivraisonComponent } from './back/livraison/livraison.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,7 @@ import { LivraisonComponent } from './back/livraison/livraison.component';
     FooterComponent,
     ErrorModalComponent,
     SuccessModalComponent,
-    
+
   ],
   imports: [
     BrowserModule,
