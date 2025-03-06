@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,24 +27,48 @@ public class Projet {
     private String description;
     private LocalDate dateDebut;
     private LocalDate dateFinPrevue;
-    private LocalDate dateFinReelle;
+    private LocalDate dateFinReelle; // ✅ User can enter real-time finish date
     private BigDecimal budget;
+    private LocalDateTime lastUpdated; // ✅ Track the last time progress was updated
 
+    @Transient
+    private String scheduleStatus; // ✅ Used for real-time schedule analysis
     @Enumerated(EnumType.STRING)
     private Etat etat;
 
-    private String responsable; // Project Manager
-    private boolean archived = false; // New field for archiving
+    private String responsable;
+    private boolean archived = false;
+    private boolean approved = false;
 
+    private int progress = 0; // ✅ Automatically calculated based on budget & duration
+
+    private int expectedProgress = 0;
     @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Livrable> livrables = new ArrayList<>();
 
-    private boolean approved = false; // ✅ New field for admin approval
     public Projet() {
     }
 
-    public Projet(Long id, String nom, String description, LocalDate dateDebut, LocalDate dateFinPrevue, LocalDate dateFinReelle, BigDecimal budget, Etat etat, String responsable, boolean archived, List<Livrable> livrables, boolean approved) {
+    public Projet(String nom, String description, LocalDate dateDebut, LocalDate dateFinPrevue, LocalDate dateFinReelle, BigDecimal budget, LocalDateTime lastUpdated, String scheduleStatus, Etat etat, String responsable, boolean archived, boolean approved, int progress, int expectedProgress, List<Livrable> livrables) {
+        this.nom = nom;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFinPrevue = dateFinPrevue;
+        this.dateFinReelle = dateFinReelle;
+        this.budget = budget;
+        this.lastUpdated = lastUpdated;
+        this.scheduleStatus = scheduleStatus;
+        this.etat = etat;
+        this.responsable = responsable;
+        this.archived = archived;
+        this.approved = approved;
+        this.progress = progress;
+        this.expectedProgress = expectedProgress;
+        this.livrables = livrables;
+    }
+
+    public Projet(Long id, String nom, String description, LocalDate dateDebut, LocalDate dateFinPrevue, LocalDate dateFinReelle, BigDecimal budget, LocalDateTime lastUpdated, String scheduleStatus, Etat etat, String responsable, boolean archived, boolean approved, int progress, int expectedProgress, List<Livrable> livrables) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -51,25 +76,15 @@ public class Projet {
         this.dateFinPrevue = dateFinPrevue;
         this.dateFinReelle = dateFinReelle;
         this.budget = budget;
+        this.lastUpdated = lastUpdated;
+        this.scheduleStatus = scheduleStatus;
         this.etat = etat;
         this.responsable = responsable;
         this.archived = archived;
-        this.livrables = livrables;
         this.approved = approved;
-    }
-
-    public Projet(LocalDate dateDebut, String nom, String description, LocalDate dateFinPrevue, LocalDate dateFinReelle, BigDecimal budget, Etat etat, String responsable, boolean archived, List<Livrable> livrables, boolean approved) {
-        this.dateDebut = dateDebut;
-        this.nom = nom;
-        this.description = description;
-        this.dateFinPrevue = dateFinPrevue;
-        this.dateFinReelle = dateFinReelle;
-        this.budget = budget;
-        this.etat = etat;
-        this.responsable = responsable;
-        this.archived = archived;
+        this.progress = progress;
+        this.expectedProgress = expectedProgress;
         this.livrables = livrables;
-        this.approved = approved;
     }
 
     public Long getId() {
@@ -128,6 +143,22 @@ public class Projet {
         this.budget = budget;
     }
 
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public String getScheduleStatus() {
+        return scheduleStatus;
+    }
+
+    public void setScheduleStatus(String scheduleStatus) {
+        this.scheduleStatus = scheduleStatus;
+    }
+
     public Etat getEtat() {
         return etat;
     }
@@ -152,19 +183,37 @@ public class Projet {
         this.archived = archived;
     }
 
-    public List<Livrable> getLivrables() {
-        return livrables;
-    }
-
-    public void setLivrables(List<Livrable> livrables) {
-        this.livrables = livrables;
-    }
-
     public boolean isApproved() {
         return approved;
     }
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public int getExpectedProgress() {
+        return expectedProgress;
+    }
+
+    public void setExpectedProgress(int expectedProgress) {
+        this.expectedProgress = expectedProgress;
+    }
+
+    public List<Livrable> getLivrables() {
+        return livrables;
+    }
+
+
+
+    public void setLivrables(List<Livrable> livrables) {
+        this.livrables = livrables;
     }
 }

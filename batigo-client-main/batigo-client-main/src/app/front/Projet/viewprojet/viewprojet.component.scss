@@ -11,6 +11,18 @@
         color: #333;
         margin-bottom: 20px;
     }
+    /* Horizontal container for the cards */
+    .horizontal-cards {
+        display: flex;
+        flex-wrap: nowrap;
+        /* Prevents wrapping to a new line */
+        overflow-x: auto;
+        /* Enables horizontal scroll if needed */
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        justify-content: center;
+        /* Centers the cards horizontally */
+    }
     .status-card {
         border: none;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -18,15 +30,11 @@
         text-align: center;
         background: #ffffff;
         border-radius: 12px;
-        /* Increased for smooth look */
         padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
         min-width: 250px;
-        /* Prevents card from being too small */
+        /* Keep a minimum width for each card */
         min-height: 150px;
+        /* Optional min height */
         &:hover {
             transform: translateY(-3px);
             box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
@@ -40,7 +48,6 @@
         border-radius: 20px;
         text-transform: uppercase;
         margin-bottom: 10px;
-        /* Fix spacing */
     }
     .status-en-cours {
         background: #ffdd57;
@@ -48,27 +55,81 @@
     }
     .status-termine {
         background: #28a745;
-        color: white;
+        color: #fff;
     }
     .status-annule {
         background: #dc3545;
-        color: white;
+        color: #fff;
     }
+    .status-archived {
+        background: #6c757d;
+        color: #fff;
+    }
+    /* Example style for an archived card, if needed */
+    .archived-card {
+        opacity: 0.9;
+    }
+    /*****************************************************
+     * OVERRIDE BOOTSTRAP BUTTON COLORS FOR YOUR THEME
+     *****************************************************/
+    /* Primary: main brand orange */
     .btn-primary {
-        background: #007bff;
-        color: white;
-        border: none;
-        transition: 0.3s;
-        padding: 8px 12px;
-        font-size: 14px;
-        border-radius: 5px;
+        background-color: #FF7700 !important;
+        border-color: #FF7700 !important;
+        color: #fff !important;
         &:hover {
-            background: #0056b3;
+            background-color: darken(#FF7700, 10%) !important;
+            border-color: darken(#FF7700, 10%) !important;
         }
     }
-    .btn-primary:focus,
-    .btn-primary:active {
-        outline: none !important;
-        box-shadow: none !important;
+    /* Warning: slightly lighter or complementary orange */
+    .btn-warning {
+        background-color: #FF9500 !important;
+        border-color: #FF9500 !important;
+        color: #fff !important;
+        &:hover {
+            background-color: darken(#FF9500, 10%) !important;
+            border-color: darken(#FF9500, 10%) !important;
+        }
+    }
+    /* Danger: bright red-orange or your preferred red */
+    .btn-danger {
+        background-color: #FF4C4C !important;
+        border-color: #FF4C4C !important;
+        color: #fff !important;
+        &:hover {
+            background-color: darken(#FF4C4C, 10%) !important;
+            border-color: darken(#FF4C4C, 10%) !important;
+        }
+    }
+    /* Success: you can keep the classic green or pick a brand variant */
+    .btn-success {
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+        color: #fff !important;
+        &:hover {
+            background-color: darken(#28a745, 10%) !important;
+            border-color: darken(#28a745, 10%) !important;
+        }
+    }
+    /* Info: if you use .btn-info, give it a teal or a custom color */
+    .btn-info {
+        background-color: #17a2b8 !important;
+        border-color: #17a2b8 !important;
+        color: #fff !important;
+        &:hover {
+            background-color: darken(#17a2b8, 10%) !important;
+            border-color: darken(#17a2b8, 10%) !important;
+        }
+    }
+    /* Secondary: neutral or brand gray */
+    .btn-secondary {
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+        color: #fff !important;
+        &:hover {
+            background-color: darken(#6c757d, 10%) !important;
+            border-color: darken(#6c757d, 10%) !important;
+        }
     }
 }

@@ -31,17 +31,38 @@ export class AdminApproveComponent implements OnInit {
   }
 
   approveProjet(projet: Projet) {
-    if (!projet.approved) {
-      if (confirm('Are you sure you want to approve this project?')) {
-        this.projetService.approveProjet(projet.id!).subscribe({
-          next: () => {
-            projet.approved = true; // ✅ Update UI to reflect approval
-          },
-          error: (err) => {
-            console.error('Error approving project:', err);
-          }
-        });
+      if (!projet.approved) {
+        if (confirm('Are you sure you want to approve this project?')) {
+          this.projetService.approveProjet(projet.id!).subscribe({
+            next: () => {
+              projet.approved = true; // ✅ Update UI to reflect approval
+              this.showSystemNotification(`Project "${projet.nom}" has been approved.`);
+            },
+            error: (err) => {
+              console.error('Error approving project:', err);
+            }
+          });
+        }
       }
     }
+/**
+   * Shows a native system-level notification using the HTML5 Notifications API.
+   */
+private showSystemNotification(message: string): void {
+  if (!('Notification' in window)) {
+    console.warn('This browser does not support system notifications.');
+    return;
   }
+
+  if (Notification.permission === 'granted') {
+    new Notification(message);
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        new Notification(message);
+      }
+    });
+  }
+}
+  
 }

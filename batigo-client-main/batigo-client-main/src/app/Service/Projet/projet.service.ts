@@ -34,18 +34,17 @@ export class ProjetService {
     }
   
     downloadProjetPdf(id: number): Observable<Blob> {
-      return this.http.get(`${this.apiUrl}/${id}/download-pdf`, { responseType: 'blob' });
+      return this.http.get(`${this.apiUrl}/${id}/pdf`, { responseType: 'blob' });
     }
 
     getArchivedProjets(): Observable<Projet[]> {
         return this.http.get<Projet[]>(`${this.apiUrl}/archived`);
     }
 
-    // FRONT OFFICE: Get only approved projects
     getApprovedProjets(): Observable<Projet[]> {
-      return this.http.get<Projet[]>(this.apiUrl);
+      return this.http.get<Projet[]>(`${this.apiUrl}`); // Ensure URL is correct
     }
-
+    
     // BACK OFFICE: Get all projects (approved & pending)
     getAllProjets(): Observable<Projet[]> {
       return this.http.get<Projet[]>(`${this.apiUrl}/all`);
@@ -60,4 +59,21 @@ export class ProjetService {
     approveProjet(id: number): Observable<Projet> {
       return this.http.put<Projet>(`${this.apiUrl}/${id}/approve`, {});
     }
+
+    //get project by name
+    getProjetByName(name: string): Observable<Projet[]> {
+      return this.http.get<Projet[]>(`${this.apiUrl}/name/${name}`);
+    }
+    
+
+    //get project by etat
+    getProjetByEtat(etat: string): Observable<Projet[]> {
+      return this.http.get<Projet[]>(`${this.apiUrl}/etat/${etat}`);
+    }
+    updateProjetProgress(id: number, progress: number): Observable<Projet> {
+      return this.http.put<Projet>(`${this.apiUrl}/${id}/progress/${progress}`, {});
+  }
+  
+
+
 }

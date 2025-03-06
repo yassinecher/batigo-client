@@ -10,7 +10,7 @@ import { FooterComponent } from './front/Shared/footer/footer.component';
 import { DashboardComponent } from './back/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BackModule } from './back/back.module';
 import { CreateprojetComponent } from './front/Projet/createprojet/createprojet.component';
 import { ViewprojetComponent } from './front/Projet/viewprojet/viewprojet.component';
@@ -44,6 +44,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgbModule,
     HttpClientModule,
     NgxPaginationModule,
+    FormsModule
   
   ],
   providers: [],

@@ -5,16 +5,19 @@ export enum Etat {
   }
   
   export interface Projet {
-    id?: number; 
+    id: number; 
     nom: string;
     description: string;
-    dateDebut: string; // ISO format string (YYYY-MM-DD)
+    dateDebut: string; 
     dateFinPrevue: string;
-    dateFinReelle?: string; 
+    dateFinReelle: string; 
     budget: number;
     etat: Etat;
     responsable: string; 
     archived: boolean;
-    approved: boolean; 
+    approved: boolean;
+    progress: number; //
+    lastUpdated: string; // ✅ Track when progress was last updated
+    scheduleStatus?: string; // ✅ Show if it's behind, on track, or ahead
   }
   

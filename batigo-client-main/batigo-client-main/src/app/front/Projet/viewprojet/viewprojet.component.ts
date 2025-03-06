@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Projet } from 'src/app/Model/projet.model';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Projet, Etat } from 'src/app/Model/projet.model'; // Import Etat enum
 import { ProjetService } from 'src/app/Service/Projet/projet.service';
 
 @Component({
@@ -13,16 +15,40 @@ export class ViewprojetComponent implements OnInit {
   loading = true;
   showArchived = false;
 
-   // Pagination properties
-   activePage: number = 1;
-   archivedPage: number = 1;
-   itemsPerPage: number = 3;
+  // Pagination properties
+  activePage: number = 1;
+  archivedPage: number = 1;
+  itemsPerPage: number = 3;
+
+  // Filter properties
+  filterName: string = '';
+  filterEtat: string = '';
+
+  // New FormControl for automatic search by project name
+  searchControl: FormControl = new FormControl();
+
   constructor(private projetService: ProjetService) {}
 
   ngOnInit() {
     this.loadApprovedProjects();
+
+    // Subscribe to changes on the searchControl to perform an automatic search
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(300), // Wait 300ms after the last keystroke
+        distinctUntilChanged() // Only proceed if the value has changed
+      )
+      .subscribe((value: string) => {
+        if (value && value.trim() !== '') {
+          this.loading = true;
+          this.loadProjetByName(value);
+        } else {
+          this.loadApprovedProjects();
+        }
+      });
   }
 
+  
   downloadPdf(projectId: number, projectName: string) {
     this.projetService.downloadProjetPdf(projectId).subscribe({
       next: (response) => {
@@ -101,4 +127,73 @@ export class ViewprojetComponent implements OnInit {
       this.showArchived = false;
     }
   }
+
+// New method to get projects by name
+loadProjetByName(name: string) {
+  this.projetService.getProjetByName(name).subscribe({
+    next: (data) => {
+      this.projets = data; // data is now an array
+      this.loading = false;
+    },
+    error: (err) => {
+      console.error('Error loading project by name:', err);
+      this.projets = [];
+      this.loading = false;
+    }
+  });
+}
+
+
+  // New method to get projects by state (etat)
+  loadProjetsByEtat(etat: string) {
+    this.projetService.getProjetByEtat(etat).subscribe({
+      next: (data) => {
+        this.projets = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading projects by state:', err);
+        this.loading = false;
+      }
+    });
+  }
+
+
+  updateProgress(projet: Projet, progress: number) {
+    if (progress < projet.progress) {
+      alert("You cannot decrease the progress!");
+      return;
+    }
+  
+    this.projetService.updateProjetProgress(projet.id!, progress).subscribe({
+      next: (updatedProjet) => {
+        projet.progress = updatedProjet.progress;
+  
+        // ✅ If progress reaches 100%, mark as complete and archive
+        if (updatedProjet.progress === 100) {
+          projet.etat = Etat.TERMINE;
+          this.projetService.updateProjet(projet).subscribe({
+            next: () => {
+              this.projetService.archiveProjet(projet.id!).subscribe({
+                next: () => console.log(`Project ${projet.nom} has been archived.`),
+                error: (err) => console.error("Error archiving project:", err)
+              });
+  
+              // ✅ Reload project list after update
+              this.loadApprovedProjects();
+            },
+            error: (err) => console.error("Error updating project status:", err)
+          });
+        } else {
+          // ✅ Reload project list to reflect progress update
+          this.loadApprovedProjects();
+        }
+      },
+      error: (err) => {
+        console.error("Error updating progress:", err);
+      }
+    });
+  }
+  
+  
 }

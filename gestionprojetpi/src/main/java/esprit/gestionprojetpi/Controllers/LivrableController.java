@@ -31,6 +31,8 @@ public class LivrableController {
         return ResponseEntity.ok(savedLivrable);
     }
 
+
+
     // Get all deliverables
     @GetMapping("/all")
     public ResponseEntity<List<Livrable>> getAllLivrables() {

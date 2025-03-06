@@ -1,10 +1,14 @@
 package esprit.gestionprojetpi.Services;
 
+import esprit.gestionprojetpi.Entities.Etat;
 import esprit.gestionprojetpi.Entities.Projet;
 import esprit.gestionprojetpi.Repositories.ProjetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,13 +82,80 @@ public class ProjetService {
         return projetRepository.save(projet);
     }
 
-    // Get only approved projects for frontend
-    public List<Projet> getApprovedProjets() {
-        return projetRepository.findByArchivedFalseAndApprovedTrue();
-    }
+
 
     // Get all projects (both approved and pending) for backoffice
     public List<Projet> getAllProjets() {
         return projetRepository.findByArchivedFalse();
     }
+
+
+    //get project by name
+// Search projects by name (partial match)
+    public List<Projet> searchProjetByName(String name) {
+        return projetRepository.findByNomContainingIgnoreCase(name);
+    }
+
+
+
+    public List<Projet> getProjetsByEtat(Etat etat) {
+        return projetRepository.findByEtat(etat);
+    }
+
+
+    public List<Projet> getApprovedProjets() {
+        List<Projet> projets = projetRepository.findByArchivedFalseAndApprovedTrue();
+        projets.forEach(this::analyzeProjectSchedule); // ✅ Analyze each project
+        return projets;
+    }
+
+
+    public Projet updateProjetProgress(Long id, int progress) {
+        Projet projet = projetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+
+        projet.setProgress(progress);
+        projet.setLastUpdated(LocalDateTime.now());
+
+        // ✅ Analyze schedule status after updating progress
+        analyzeProjectSchedule(projet);
+
+        // ✅ If progress reaches 100%, mark project as complete and archive it
+        if (progress == 100) {
+            projet.setEtat(Etat.TERMINE);
+            projet.setArchived(true);
+        }
+
+        return projetRepository.save(projet);
+    }
+
+    private void analyzeProjectSchedule(Projet projet) {
+        LocalDate today = LocalDate.now();
+        LocalDate startDate = projet.getDateDebut();
+        LocalDate endDate = projet.getDateFinPrevue();
+
+        long totalDuration = ChronoUnit.DAYS.between(startDate, endDate);
+        long daysPassed = ChronoUnit.DAYS.between(startDate, today);
+
+        // ✅ Avoid division by zero
+        if (totalDuration <= 0 || daysPassed < 0) {
+            projet.setScheduleStatus("Invalid Dates");
+            return;
+        }
+
+        int expectedProgress = (int) ((daysPassed / (double) totalDuration) * 100);
+        int actualProgress = projet.getProgress();
+
+        if (actualProgress < expectedProgress - 5) {
+            projet.setScheduleStatus("Behind Schedule ❌");
+        } else if (actualProgress > expectedProgress + 5) {
+            projet.setScheduleStatus("Ahead of Schedule ✅");
+        } else {
+            projet.setScheduleStatus("On Track ⚠️");
+        }
+    }
+
+
+
+
 }

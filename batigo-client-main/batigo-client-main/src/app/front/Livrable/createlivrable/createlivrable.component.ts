@@ -29,7 +29,7 @@ export class CreatelivrableComponent implements OnInit {
         dateRemiseReelle: [''],
         commentaire: ['']
       },
-      { validators: livrableDateValidation } // ✅ Apply the date validation
+      { validators: livrableDateValidation } 
     );
   }
 
@@ -59,16 +59,16 @@ export class CreatelivrableComponent implements OnInit {
   }
 }
 
-// ✅ Function to validate dates
+
 export function livrableDateValidation(group: AbstractControl): ValidationErrors | null {
   const dateRemisePrevue = group.get('dateRemisePrevue')?.value;
   const dateRemiseReelle = group.get('dateRemiseReelle')?.value;
 
   if (dateRemisePrevue && dateRemiseReelle && new Date(dateRemisePrevue) > new Date(dateRemiseReelle)) {
-    group.get('dateRemiseReelle')?.setErrors({ dateInvalid: true }); // ✅ Set error if invalid
+    group.get('dateRemiseReelle')?.setErrors({ dateInvalid: true }); 
     return { dateInvalid: true };
   } else {
-    group.get('dateRemiseReelle')?.setErrors(null); // ✅ Clear error if valid
+    group.get('dateRemiseReelle')?.setErrors(null); 
     return null;
   }
 }
