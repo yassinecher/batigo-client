@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';  // Ensure that Component and
 import { ActivatedRoute, Router } from '@angular/router';
 import { FournisseurService } from '../services/fournisseur.service';
 import { Fournisseur } from '../models/fournisseur';  // Import Fournisseur interface
+import Swal from 'sweetalert2';  // Import SweetAlert2
 
 @Component({
   selector: 'app-update-fournisseur',
@@ -36,8 +37,14 @@ export class UpdateFournisseurComponent implements OnInit {
   onSubmit(fournisseurForm: any): void {
     if (fournisseurForm.valid) {
       this.fournisseurService.updateFournisseur(this.fournisseur).subscribe(() => {
-        alert('Fournisseur mis à jour avec succès');
-        this.router.navigate(['/fournisseur/list']);  // Navigate to the list of fournisseurs
+        Swal.fire({
+          title: 'Succès!',
+          text: 'Fournisseur mis à jour avec succès',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          this.router.navigate(['/fournisseur/list']);  // Navigate to the list of fournisseurs
+        });
       });
     }
   }
