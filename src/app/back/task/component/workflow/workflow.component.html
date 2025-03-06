@@ -1,0 +1,30 @@
+<div class="container m-4">
+    <div class="">
+        <h3 class="mb-3">Workflows</h3>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3
+                row-cols-lg-4 g-6">
+        <div *ngFor="let workflow of workflowList" (click)="navigateToWorkflow(workflow.id)" class="col" style="cursor: pointer;">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="card-body my-auto" style="    flex-direction: column;">
+                    {{workflow.name}}
+<div><div class="flex"><i class="fas fa-fw fa-trash-alt"></i></div><div><i class="fas fa-fw fa-pencil-alt"></i></div></div>
+                </div>
+            </div>
+        </div>
+        <div (click)="addNewWorkflow()" class="col" style="cursor: pointer;">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="card-body my-auto">
+                    <div class="plus">
+                        <i class="bi bi-plus"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+
+        </div>
+    </div>
+</div>

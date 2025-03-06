@@ -30,11 +30,13 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              
+                "node_modules/angular-calendar/scss/angular-calendar.scss",
               "src/assets/scss/style.scss",
-              "src/styles.scss"
+              "node_modules/flatpickr/dist/flatpickr.min.css",
+               "src/styles.scss"
             
             ],
             "scripts": [

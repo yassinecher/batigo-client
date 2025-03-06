@@ -1,18 +1,38 @@
 <nav class="sidebar-nav">
     <ul id="sidebarnav">
         <!-- First level menu -->
-        <li class="sidebar-item" [class.active]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems"
+        <li class="sidebar-item"
+            [class.active]="showMenu === sidebarnavItem.title"
+            *ngFor="let sidebarnavItem of sidebarnavItems"
             [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
-            <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">{{sidebarnavItem.title}}</div>
-            <a class="sidebar-link waves-effect waves-dark" [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
-                [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;" (click)="addExpandClass(sidebarnavItem.title)"
-                [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
+
+            <!-- Section Title -->
+            <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">
+                {{sidebarnavItem.title}}
+            </div>
+
+            <!-- Parent Menu Item -->
+            <a class="sidebar-link waves-effect waves-dark"
+               [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
+               [ngClass]="[sidebarnavItem.class]"
+               *ngIf="!sidebarnavItem.extralink;"
+               (click)="addExpandClass(sidebarnavItem.title)"
+               [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
                 <i [ngClass]="[sidebarnavItem.icon]"></i>
                 <span class="hide-menu">{{sidebarnavItem.title}}</span>
+                <i class="bi bi-chevron-down" *ngIf="sidebarnavItem.submenu.length > 0"></i>
             </a>
-        </li>
-        <li class="text-center p-3 upgrade-btn">
-            <a href="https://www.wrappixel.com/templates/elite-angular-admin/" class="btn d-block w-100 btn-danger">Upgrade to Pro</a>
+
+            <!-- Submenu -->
+            <ul class="submenu" style="font-size: small;" *ngIf="showMenu === sidebarnavItem.title">
+                <li class="sidebar-item" *ngFor="let subItem of sidebarnavItem.submenu">
+                    <a class="sidebar-link"  style="padding: 5px;padding-left: 25px;background-color: #fc96785e;" [routerLink]="[subItem.path]" [routerLinkActive]="'active'">
+                        <i [ngClass]="[subItem.icon]"></i>
+                        <span class="hide-menu">{{ subItem.title }}</span>
+                    </a>
+                </li>
+            </ul>
+
         </li>
     </ul>
 </nav>
