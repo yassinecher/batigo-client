@@ -1,135 +1,90 @@
-.view-projets-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    h2 {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 20px;
+.project-actions {
+    display: flex;
+    gap: 0.5rem; // Adjust the spacing between buttons as needed
+    .btn {
+        background-color: darken(#FD5D14, 10%) !important;
+        border-color: darken(#FD5D14, 10%) !important;
+        color: #fff !important;
     }
-    /* Horizontal container for the cards */
-    .horizontal-cards {
-        display: flex;
-        flex-wrap: nowrap;
-        /* Prevents wrapping to a new line */
-        overflow-x: auto;
-        /* Enables horizontal scroll if needed */
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        justify-content: center;
-        /* Centers the cards horizontally */
+    .btn:hover {
+        background-color: #040F28 !important; // Replace with your template's primary color if different
+        border-color: #040F28 !important;
     }
-    .status-card {
-        border: none;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        transition: 0.3s;
-        text-align: center;
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 20px;
-        min-width: 250px;
-        /* Keep a minimum width for each card */
-        min-height: 150px;
-        /* Optional min height */
-        &:hover {
-            transform: translateY(-3px);
-            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.custom-pagination {
+    margin-top: 1rem;
+    pagination-controls {
+        ul.pagination {
+            display: flex;
+            justify-content: center;
+            padding-left: 0;
+            list-style: none;
+            border-radius: 0.25rem;
+            margin: 0;
+            li.page-item {
+                margin: 0 0.25rem;
+                a.page-link {
+                    display: block;
+                    padding: 0.5rem 0.75rem;
+                    color: #0d6efd;
+                    background-color: #fff;
+                    border: 1px solid #dee2e6;
+                    border-radius: 0.25rem;
+                    text-decoration: none;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #e9ecef;
+                        border-color: #ced4da;
+                    }
+                }
+                &.active a.page-link {
+                    color: #fff;
+                    background-color: #0d6efd;
+                    border-color: #0d6efd;
+                    cursor: default;
+                }
+            }
         }
     }
-    .status-badge {
-        display: inline-block;
-        padding: 8px 15px;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 20px;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-    }
-    .status-en-cours {
-        background: #ffdd57;
-        color: #856404;
-    }
-    .status-termine {
-        background: #28a745;
-        color: #fff;
-    }
-    .status-annule {
-        background: #dc3545;
-        color: #fff;
-    }
-    .status-archived {
-        background: #6c757d;
-        color: #fff;
-    }
-    /* Example style for an archived card, if needed */
-    .archived-card {
-        opacity: 0.9;
-    }
-    /*****************************************************
-     * OVERRIDE BOOTSTRAP BUTTON COLORS FOR YOUR THEME
-     *****************************************************/
-    /* Primary: main brand orange */
-    .btn-primary {
-        background-color: #FF7700 !important;
-        border-color: #FF7700 !important;
-        color: #fff !important;
-        &:hover {
-            background-color: darken(#FF7700, 10%) !important;
-            border-color: darken(#FF7700, 10%) !important;
-        }
-    }
-    /* Warning: slightly lighter or complementary orange */
-    .btn-warning {
-        background-color: #FF9500 !important;
-        border-color: #FF9500 !important;
-        color: #fff !important;
-        &:hover {
-            background-color: darken(#FF9500, 10%) !important;
-            border-color: darken(#FF9500, 10%) !important;
-        }
-    }
-    /* Danger: bright red-orange or your preferred red */
-    .btn-danger {
-        background-color: #FF4C4C !important;
-        border-color: #FF4C4C !important;
-        color: #fff !important;
-        &:hover {
-            background-color: darken(#FF4C4C, 10%) !important;
-            border-color: darken(#FF4C4C, 10%) !important;
-        }
-    }
-    /* Success: you can keep the classic green or pick a brand variant */
-    .btn-success {
-        background-color: #28a745 !important;
-        border-color: #28a745 !important;
-        color: #fff !important;
-        &:hover {
-            background-color: darken(#28a745, 10%) !important;
-            border-color: darken(#28a745, 10%) !important;
-        }
-    }
-    /* Info: if you use .btn-info, give it a teal or a custom color */
-    .btn-info {
-        background-color: #17a2b8 !important;
-        border-color: #17a2b8 !important;
-        color: #fff !important;
-        &:hover {
-            background-color: darken(#17a2b8, 10%) !important;
-            border-color: darken(#17a2b8, 10%) !important;
-        }
-    }
-    /* Secondary: neutral or brand gray */
-    .btn-secondary {
-        background-color: #6c757d !important;
-        border-color: #6c757d !important;
-        color: #fff !important;
-        &:hover {
-            background-color: darken(#6c757d, 10%) !important;
-            border-color: darken(#6c757d, 10%) !important;
+}
+
+.custom-pagination {
+    text-align: center; // Center the pagination
+    margin-top: 1rem;
+    // This is needed if you place the styles in a component SCSS file
+    // to override ngx-pagination's default styles.
+     ::ng-deep {
+        .ngx-pagination {
+            display: inline-block;
+            margin: 0;
+            // Links (Previous, Next, page numbers)
+            .pointer {
+                cursor: pointer;
+                color: #999;
+                text-decoration: none;
+                margin: 0 0.4rem;
+                padding: 0.4rem 0.6rem;
+                border-radius: 4px;
+                &:hover:not(.disabled) {
+                    background-color: #f1f1f1;
+                    color: #0d6efd;
+                }
+            }
+            // Current page styling (blue background, white text)
+            .current {
+                background-color: #0d6efd;
+                color: #fff !important;
+                border: 1px solid #0d6efd;
+                padding: 0.4rem 0.6rem;
+                border-radius: 4px;
+                margin: 0 0.4rem;
+            }
+            // Disabled links (grayed out, no pointer)
+            .disabled {
+                color: #ccc !important;
+                cursor: default;
+            }
         }
     }
 }
