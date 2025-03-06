@@ -1,0 +1,135 @@
+/* Style général de la carte */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  /* Titre de la carte */
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .card-subtitle {
+    font-size: 1.1rem;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  
+  /* Table responsive */
+  .table-responsive {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  
+  /* Style de la table */
+  .table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  
+  .table th {
+    background-color: #f4f5f7;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  /* Effet au survol des lignes */
+  .table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  /* Style des bordures */
+  .table-bordered {
+    border: 1px solid #e0e0e0;
+  }
+  
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #e0e0e0;
+  }
+  
+  /* Stylisation des colonnes spécifiques */
+  .table td,
+  .table th {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Ajout de padding dans les cellules */
+  .table td {
+    padding: 10px 15px;
+  }
+  
+  /* Titres de colonnes */
+  .text-dark {
+    color: #333 !important;
+  }
+  
+  /* Couleur de fond au survol du tableau */
+  .table-responsive::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .table-responsive::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  
+  .table-responsive::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Pour les numéros et le padding dans la première colonne */
+  .table td:first-child {
+    font-weight: 600;
+    color: #007bff;
+  }
+  
+  /* Couleurs personnalisées pour les statuts */
+  .statut-actif {
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .statut-inactif {
+    color: #dc3545;
+    font-weight: bold;
+  }
+  
+  /* Pseudo-classes pour les en-têtes de colonne */
+  .table th {
+    cursor: pointer;
+  }
+  
+  /* Ajuster la taille de la police */
+  .font-medium {
+    font-size: 1.1rem;
+  }
+  
+  /* Ajuster l'espacement des colonnes */
+  .table th, .table td {
+    padding: 1rem;
+    font-size: 14px;
+  }
+  

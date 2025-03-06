@@ -13,6 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorModalComponent } from './front/Shared/error-modal/error-modal.component';
 import { SuccessModalComponent } from './front/Shared/success-modal/success-modal.component';
+import { AddFournisseurComponent } from './components/add-fournisseur/add-fournisseur.component';
+import { FournisseurListComponent } from './fournisseur-list/fournisseur-list.component';
+import { UpdateFournisseurComponent } from './update-fournisseur/update-fournisseur.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +25,9 @@ import { SuccessModalComponent } from './front/Shared/success-modal/success-moda
     FooterComponent,
     ErrorModalComponent,
     SuccessModalComponent,
+    AddFournisseurComponent,
+    FournisseurListComponent,
+    UpdateFournisseurComponent,
   ],
   imports: [
     BrowserModule,

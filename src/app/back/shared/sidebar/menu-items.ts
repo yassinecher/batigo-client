@@ -31,7 +31,26 @@ export const ROUTES: RouteInfo[] = [
       extralink: false,
       submenu: []
     }]
-  }, {
+  },
+  {
+    path: '/fournisseur/add',  // Nouveau chemin pour ajouter un fournisseur
+    title: 'Add Supplier',
+    icon: 'bi bi-person-add',  // Icône pour l'ajout
+    class: '',
+    extralink: false,
+    submenu: []
+  }
+  , {
+    path: '/fournisseur/list',  // Nouveau chemin pour afficher la liste des fournisseurs
+    title: 'Supplier List',
+    icon: 'bi bi-person-lines-fill',  // Icône pour la liste des fournisseurs
+    class: '',
+    extralink: false,
+    submenu: []
+  }
+  ,
+  
+  {
     path: '/users',
     title: 'Users',
     icon: 'bi bi-person',
