@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="container-fluid bg-light py-6 px-5 ">
+
+    <div class="row g-5 portfolio-container">
+        <div *ngFor="let produit of products" class="col-xl-4 col-lg-6 col-md-6 portfolio-item"
+            [ngClass]="{'first':produit.id&& produit.id % 2 === 0, 'second': produit.id&& produit.id % 2 !== 0}">
+            <div class="position-relative portfolio-box">
+                <img class="img-fluid w-100" [src]="produit.imageBase64" alt="{{ produit.nomP }}">
+                <a class="portfolio-title shadow-sm" href="">
+                    <p class="h4 text-uppercase">{{ produit.nomP }}</p>
+                    <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{
+                        produit.categorie?.nom
+                        }}</span>
+                </a>
+                <a class="portfolio-btn" href="{{ produit.imageBase64 || '/assets/img/default-product.jpg' }}"
+                    data-lightbox="portfolio">
+                    <i class="bi bi-plus text-white"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <ul class="pagination mt-4">
+        <li class="page-item" [class.disabled]="currentPage === 0" (click)="goToPage(currentPage - 1)">
+            <a class="page-link">Previous</a>
+        </li>
+
+        <li class="page-item" *ngFor="let page of totalPagesArray; let i = index" [class.active]="i === currentPage"
+            (click)="goToPage(i)">
+            <a class="page-link">{{ i + 1 }}</a>
+        </li>
+
+        <li class="page-item" [class.disabled]="currentPage === totalPages - 1" (click)="goToPage(currentPage + 1)">
+            <a class="page-link">Next</a>
+        </li>
+    </ul>
+</div>

@@ -17,8 +17,7 @@ export class AddFournisseurComponent implements OnInit {
     email: '',
     tel: '',
     matricule: '',
-    date_creation: new Date(),
-    statut: 'actif',
+     statut: 'actif',
     produits: []
   };
 
@@ -28,8 +27,7 @@ export class AddFournisseurComponent implements OnInit {
     email: '',
     tel: '',
     matricule: '',
-    date_creation: '',
-    statut: ''
+     statut: ''
   };
 
   constructor(
@@ -67,12 +65,7 @@ export class AddFournisseurComponent implements OnInit {
       this.fieldErrors['matricule'] = 'Le matricule est obligatoire.';
       isValid = false;
     }
-
-    if (!this.fournisseur.date_creation) {
-      this.fieldErrors['date_creation'] = 'La date de création est obligatoire.';
-      isValid = false;
-    }
-
+ 
     if (!this.fournisseur.statut) {
       this.fieldErrors['statut'] = 'Le statut est obligatoire.';
       isValid = false;

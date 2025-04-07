@@ -42,12 +42,7 @@
                           <input type="text" id="matricule" class="form-control" [(ngModel)]="fournisseur.matricule" name="matricule" required #matricule="ngModel">
                           <div *ngIf="matricule.invalid && matricule.touched" class="text-danger">Le matricule est requis.</div>
                       </div>
-                      <!-- Date de Création -->
-                      <div class="col-md-6 mb-3">
-                          <label for="date_creation" class="form-label">Date de Création</label>
-                          <input type="date" id="date_creation" class="form-control" [(ngModel)]="fournisseur.date_creation" name="date_creation" required #date_creation="ngModel">
-                          <div *ngIf="date_creation.invalid && date_creation.touched" class="text-danger">La date de création est requise.</div>
-                      </div>
+                     
                   </div>
 
                   <div class="row">

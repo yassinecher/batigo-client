@@ -6,7 +6,7 @@ export interface Fournisseur {
     email: string;
     tel: string;
     matricule: string;
-    date_creation: Date;
+    date_creation?: Date;
     statut: string;
     produits?: Produit[]; 
   }

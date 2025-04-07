@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-primary" (click)="openAddCategory()">Add Category </button>
+            </div>
+            <app-add-category [categoryToUpdate]="categoryToUpdate" *ngIf="openForm"
+                (formSubmitted)="onFormSubmitted()"></app-add-category>
+            <div class="card-body" *ngIf="!openForm">
+                <h4 class="card-title">Category Produit list</h4>
+                <h5 class="card-subtitle text-muted">Details</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle text-nowrap">
+                        <thead>
+                            <tr>
+                                <th class="text-dark font-medium fs-4">#</th>
+                                <th class="text-dark font-medium fs-4">Name</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cat of categories ;let i = index">
+                                <td>{{i+1}}</td>
+                                <td> {{ cat.nom }}</td>
+
+                                <td>
+                                    <button class="btn btn-warning me-2" (click)="selectCategoryToUpdate(cat)">Modifer
+                                    </button>
+
+                                    <button class="btn btn-danger" (click)="deleteCategory(cat.id!)"> <i
+                                            class="fa fa-trash"></i> Delete
+                                    </button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
