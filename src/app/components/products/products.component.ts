@@ -35,8 +35,6 @@ export class ProductsComponent {
         this.produits = response.content;
         this.totalPages = response.totalPages;
         this.totalItems = response.totalElements;
-        this.currentPage = 0;
-        // 👈 capture it here
       });
   }
 
@@ -103,7 +101,7 @@ export class ProductsComponent {
       produit.description ?? '', // Replace undefined with empty string
       produit.reference ?? '', // Replace undefined with empty string
       produit?.categorie?.nom ?? '', // Replace undefined with empty string
-      produit?.fournisseur?.nom ?? '', // Replace undefined with empty string
+      produit?.fournisseur?.nom ?? '', // Replace undefined with empty string,
     ]);
 
     // Adding the table with autoTable

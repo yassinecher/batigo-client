@@ -35,12 +35,7 @@ export class ProductStatsService {
     return this.http.get<number>(`${this.baseUrl}/categories/total`);
   }
 
-  // Get total number of products in a specific category
-  getTotalNumberOfProductsPerCategory(categoryId: number): Observable<number> {
-    return this.http.get<number>(
-      `${this.baseUrl}/categories/total-products?categoryId=${categoryId}`
-    );
-  }
+
 
   // Get categories with no products
   getCategoriesWithNoProducts(): Observable<number> {
