@@ -8,21 +8,29 @@ import { AuthGuard } from './front/data-access/auth.guard';
 
 import { CommandeComponent } from './back/commande/commande.component';
 import { LivraisonComponent } from './back/livraison/livraison.component';
+import { ResetComponent } from './back/reset/reset.component';
 
 
 const routes: Routes = [
   {
-    path:'',component:HomeComponent,
+    path:'',
+    component:HomeComponent,
   },
   {
-    path:'login',component:SingInComponent,
+    path:'login',
+    component:SingInComponent,
 
+  },
+  {
+    path: 'reset-password',
+    component: ResetComponent
   },
   {
     path: 'dashboard',
     canActivate: [AuthGuard],
     loadChildren: () => import('./back/back.module').then(m => m.BackModule)
   },
+  
   {
     path: 'task',
     canActivate: [AuthGuard],

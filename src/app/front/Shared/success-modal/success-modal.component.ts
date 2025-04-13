@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -9,9 +10,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class SuccessModalComponent {
   @Input() message: string = '';
   @Input() title: string = '';
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private router: Router) {}
 
   close() {
     this.modalService.dismissAll();
+    this.router.navigate(['/login']);
   }
 }

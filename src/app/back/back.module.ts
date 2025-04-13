@@ -14,6 +14,11 @@ import { UserListComponent } from './users/components/user-list/user-list.compon
 
 import { LivraisonComponent } from './livraison/livraison.component';
 import { CommandeComponent } from './commande/commande.component';
+import { ProduitComponent } from './produit/produit.component';
+import { CartComponent } from './cart/cart.component';
+import { UserComponent } from './user/user.component';
+import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResetComponent } from './reset/reset.component';
 
 
 export const Approutes: Routes = [
@@ -38,9 +43,18 @@ export const Approutes: Routes = [
       },
    
 
-     { path: 'commande', component: CommandeComponent },
-     { path: 'livraison', component: LivraisonComponent },
-
+     { path: 'commande',
+       component: CommandeComponent },
+     { path: 'livraison', 
+      component: LivraisonComponent },
+      
+      { path: 'produit', 
+        component: ProduitComponent },
+        { path: 'cart', 
+          component: CartComponent },
+          { path: 'user', 
+            component: UserComponent }
+           
     ]
   },
   {
@@ -51,18 +65,18 @@ export const Approutes: Routes = [
 @NgModule({
   declarations: [
     SpinnerComponent,
+    NavigationComponent,
+    FullComponent,
 
-    CommandeComponent,LivraisonComponent
+    CommandeComponent,LivraisonComponent, ProduitComponent, CartComponent, UserComponent, ResetComponent
 
   ],
-  imports: [
-    
-    
- 
+  imports: [RouterModule ,
+    CommonModule,
+    NgbDropdownModule,
+    NgbCollapseModule,
     RouterModule.forChild(Approutes),
 
-    FullComponent,
-    NavigationComponent,
     SidebarComponent,   FormsModule,
     ReactiveFormsModule,CommonModule
 

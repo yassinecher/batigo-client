@@ -16,6 +16,7 @@ import { SuccessModalComponent } from './front/Shared/success-modal/success-moda
 
 import { CommandeComponent } from './back/commande/commande.component';
 import { LivraisonComponent } from './back/livraison/livraison.component';
+import { VerificationModalComponent } from './Shared/verification-modal/verification-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { LivraisonComponent } from './back/livraison/livraison.component';
     FooterComponent,
     ErrorModalComponent,
     SuccessModalComponent,
+    VerificationModalComponent,
 
   ],
   imports: [

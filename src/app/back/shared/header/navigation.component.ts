@@ -8,8 +8,6 @@ declare var $: any;
 
 @Component({
   selector: 'app-navigation',
-  standalone: true,
-  imports:[NgbDropdownModule,CommonModule],
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
@@ -19,7 +17,7 @@ export class NavigationComponent implements AfterViewInit {
   user!:User
   constructor(private modalService: NgbModal,userService:UserService) {
     userService.getUserFromDatabase().subscribe((user)=>{
-      this.user=user
+      this.user=user;
     })
   }
 

@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorModalComponent } from '../../Shared/error-modal/error-modal.component';
 import { SuccessModalComponent } from '../../Shared/success-modal/success-modal.component';
 import { UserService } from '../../../back/users/data-access/user.service';
+import { VerificationModalComponent } from 'src/app/Shared/verification-modal/verification-modal.component';
 
 @Component({
   selector: 'app-sing-in',
@@ -14,8 +15,17 @@ import { UserService } from '../../../back/users/data-access/user.service';
   styleUrls: ['./sing-in.component.css']
 })
 export class SingInComponent {
+  
   loginForm!: FormGroup;
   registerForm!: FormGroup;
+
+  emailVerified = false;
+  verificationCodeSent = false;
+  activeTab: 'login' | 'register' = 'login';
+
+
+  
+  @ViewChild('loginTab', { static: false }) loginTab!: any;
 
   constructor(
     private fb: FormBuilder,
@@ -90,30 +100,100 @@ export class SingInComponent {
   // Méthode d'inscription
   register() {
     if (this.registerForm.valid) {
-      const { firstName, lastName, email, phoneNumber, password, gender } = this.registerForm.value;
-      this.authService.register(firstName, lastName, email, phoneNumber, password, gender).subscribe({
-        next: (response) => {
-          localStorage.setItem("access_token",response.access_token)
-          const modalRef =this.modalService.open(SuccessModalComponent);
-          modalRef.componentInstance.title = "Registration";
-          modalRef.componentInstance.message ="Your account has been created! Please wait for admin confirmation." ;
-          modalRef.result.then(() => {
-            this.router.navigate(['/login']);
+      const email = this.registerForm.get('email')?.value;
+  
+      this.authService.sendVerificationCode(email).subscribe({
+        next: () => {
+          const modalRef = this.modalService.open(VerificationModalComponent);
+          modalRef.componentInstance.email = email;
+  
+          modalRef.result.then((verificationSuccess: boolean) => {
+            if (verificationSuccess) {
+              this.continueRegistration();
+            }
+          }).catch(() => {
+            // Modal dismissed
           });
         },
-        error: (err) => {
-          console.error('Registration failed', err);
-          const modalRef =this.modalService.open(ErrorModalComponent);
-          modalRef.componentInstance.title = "Registration";
-          modalRef.componentInstance.message = err.error;
-          modalRef.result.then(() => {
- 
-          });
-      }});
+        error: () => {
+          Swal.fire('Erreur', "Impossible d’envoyer le code de vérification.", 'error');
+        }
+      });
     }
   }
+  
+  continueRegistration() {
+    const { firstName, lastName, email, phoneNumber, password, gender } = this.registerForm.value;
+  
+    this.authService.register(firstName, lastName, email, phoneNumber, password, gender).subscribe({
+      next: (response) => {
+        localStorage.setItem("access_token", response.access_token);
+        Swal.fire({
+          icon: 'success',
+          title: 'Inscription réussie',
+          text: "Votre compte a été créé !",
+          timer: 2000,
+          showConfirmButton: false
+        }).then(() => {
+          this.router.navigate(['/login']);
+          this.loginTab.nativeElement.click();
+        });
+
+      },
+      error: (err) => {
+        const modalRef = this.modalService.open(ErrorModalComponent);
+        modalRef.componentInstance.title = "Registration";
+        modalRef.componentInstance.message = err.error;
+      }
+    });
+  }
+  
   redirectToLogin() {
     this.router.navigate(['/login']);
   }
 
+  forgetPassword() {
+    this.authService.sendResetEmail(this.loginForm.value?.email).subscribe({
+      next: () => alert("Reset email sent!"),
+      error: () => alert("Failed to send reset email."),
+    });
+  }
+
+  sendVerificationCode() {
+    const email = this.registerForm.get('email')?.value;
+    if (!email || this.registerForm.get('email')?.invalid) {
+      this.registerForm.get('email')?.markAsTouched();
+      return;
+    }
+  
+    this.authService.sendVerificationCode(email).subscribe({
+      next: () => {
+        this.verificationCodeSent = true;
+        Swal.fire('Code envoyé', 'Un code de vérification a été envoyé à votre email.', 'success');
+      },
+      error: () => {
+        Swal.fire('Erreur', "L'envoi du code a échoué.", 'error');
+      }
+    });
+  }
+  verifyCode(code: string) {
+  const email = this.registerForm.get('email')?.value;
+  this.authService.verifyEmailCode(email, code).subscribe({
+    next: () => {
+      this.emailVerified = true;
+      Swal.fire('Succès', "Email vérifié !", 'success');
+    },
+    error: () => {
+      this.emailVerified = false;
+      Swal.fire('Erreur', "Code incorrect ou expiré.", 'error');
+    }
+  });
+}
+switchToLogin() {
+  this.activeTab = 'login';
+}
+
+switchToRegister() {
+  this.activeTab = 'register';
+}
 }

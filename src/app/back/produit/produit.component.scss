@@ -1,0 +1,78 @@
+.portfolio-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .portfolio-item {
+    transition: transform 0.3s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.02);
+    }
+  
+    .portfolio-box {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      position: relative;
+      padding-bottom: 1.5rem;
+  
+      img {
+        border-bottom: 1px solid #eee;
+        height: 220px;
+        object-fit: cover;
+      }
+  
+      .portfolio-title {
+        text-align: center;
+        padding: 1rem;
+  
+        p {
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 0.5rem;
+        }
+  
+        span {
+          font-size: 0.9rem;
+          color: #666;
+        }
+      }
+  
+      .portfolio-btn {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #0d6efd;
+        color: white;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+        border-radius: 30px;
+        transition: background-color 0.2s ease-in-out;
+  
+        i {
+          margin-left: 8px;
+        }
+  
+        &:hover {
+          background-color: #0b5ed7;
+        }
+      }
+    }
+  }
+  
+  // Cart button at the top
+  .btn-outline-primary {
+    border-radius: 30px;
+    padding: 0.4rem 1rem;
+    font-weight: 500;
+  
+    i {
+      vertical-align: middle;
+    }
+  }
+  

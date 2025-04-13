@@ -28,6 +28,14 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
+  {
+    path: '/dashboard/produit',
+    title: 'Produits',
+    icon: 'bi bi-mouse',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
  {
 
     path: '/users',

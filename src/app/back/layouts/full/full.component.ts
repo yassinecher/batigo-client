@@ -8,9 +8,7 @@ import { NavigationComponent } from "../../shared/header/navigation.component";
 
 @Component({
   selector: "app-full-layout",
-  standalone: true,
-  imports:[RouterModule, SidebarComponent, NavigationComponent, CommonModule, NgbCollapseModule],
-  templateUrl: "./full.component.html",
+    templateUrl: "./full.component.html",
   styleUrls: ["./full.component.css"],
 })
 export class FullComponent implements OnInit {

@@ -1,0 +1,53 @@
+<div class="card mt-4">
+    <div class="card-header">
+      <h4>🛒 Panier</h4>
+      
+    </div>
+    <ul class="list-group list-group-flush" *ngIf="cart.length > 0; else empty">
+      <li class="list-group-item d-flex justify-content-between align-items-center"
+          *ngFor="let item of cart; let i = index">
+        {{ item.name }}
+        <button class="btn btn-sm btn-danger" (click)="removeItem(i)">Remove</button>
+      </li>
+    </ul>
+    <ng-template #empty>
+      <div class="p-3 text-muted">Le panier est vide.</div>
+    </ng-template>
+    <div class="card-body">
+        <div class="form-group">
+          <label for="projectName">Nom du projet</label>
+          <input type="text" id="projectName" class="form-control" [(ngModel)]="projectName" placeholder="Entrez le nom du projet" />
+        </div>
+      </div>
+    <div class="text-end mt-3">
+        <button class="btn btn-success" (click)="confirmCart()" [disabled]="cart.length === 0">
+          Confirmer le panier
+        </button>
+      </div>
+    <div class="card-footer text-end">
+      <button class="btn btn-outline-danger" (click)="clearCart()" [disabled]="cart.length === 0">
+        Vider le panier
+      </button>
+    </div>
+  </div>
+  <div class="mt-5">
+    <h4>Saved Carts</h4>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Project Name</th>
+          <th>Cart Items</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let savedProject of savedProjects">
+          <td>{{ savedProject.projectName }}</td>
+          <td>
+            {{savedProject.combinedProductNames}}
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,24 @@
+<!-- product-list.component.html -->
+<div class="d-flex justify-content-end mb-3">
+    <a href="/dashboard/cart" class="btn btn-outline-primary position-relative">
+      <i class="bi bi-cart3 me-1 fs-5"></i>
+      Voir le Panier
+    </a>
+  </div>
+<div class="row g-5 portfolio-container" style="scale: 0.9; margin: auto;">
+    <div *ngFor="let product of products" class="col-xl-4 col-lg-6 col-md-6 portfolio-item">
+      <div class="position-relative portfolio-box">
+        <img class="img-fluid w-100" [src]="product.image" alt="{{ product.name }}">
+        <a class="portfolio-title shadow-sm" >
+          <p class="h4 text-uppercase">{{ product.name }}</p>
+          <span class="text-body">
+            <i class="fa fa-map-marker-alt text-primary me-2"></i>{{ product.location }}
+          </span>
+        </a>
+        <button class="portfolio-btn btn" (click)="addToCart(product)">Ajouter au Panier
+          <i class="bi bi-plus text-white"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  
