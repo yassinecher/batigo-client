@@ -1,0 +1,40 @@
+<div class="container py-5">
+    <div class="section-title text-center">
+        <h1 class="display-4 text-primary">Livrable Statistics</h1>
+        <p class="lead">Overview of livrable statuses and due date performance</p>
+    </div>
+
+    <!-- Row for Charts -->
+    <div class="row">
+        <!-- Pie Chart (Status Distribution) -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3">
+                <h5 class="card-title text-center">Status Distribution</h5>
+                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels" [responsive]="chartOptions.responsive" [title]="chartOptions.title" [fill]="chartOptions.fill" [dataLabels]="chartOptions.dataLabels" [tooltip]="chartOptions.tooltip">
+                </apx-chart>
+            </div>
+        </div>
+
+        <!-- Scatter Chart (XY Chart: Expected Date vs. Delay) -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3">
+                <h5 class="card-title text-center">Delay Scatter Chart</h5>
+                <apx-chart [series]="xyChartOptions.series" [chart]="xyChartOptions.chart" [xaxis]="xyChartOptions.xaxis" [yaxis]="xyChartOptions.yaxis" [dataLabels]="xyChartOptions.dataLabels" [tooltip]="xyChartOptions.tooltip" [title]="xyChartOptions.title">
+                </apx-chart>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Section -->
+    <div class="mt-4 text-center">
+        <h3>Summary</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Total Livrables: {{ livrables.length }}</li>
+            <li class="list-group-item">Pending: {{ pendingCount }}</li>
+            <li class="list-group-item">In Progress: {{ inProgressCount }}</li>
+            <li class="list-group-item">Completed: {{ completedCount }}</li>
+
+            <!-- You can add more details here if needed -->
+        </ul>
+    </div>
+</div>

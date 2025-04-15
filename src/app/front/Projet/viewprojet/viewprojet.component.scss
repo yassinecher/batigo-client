@@ -1,0 +1,90 @@
+.project-actions {
+    display: flex;
+    gap: 0.5rem; // Adjust the spacing between buttons as needed
+    .btn {
+        background-color: darken(#FD5D14, 10%) !important;
+        border-color: darken(#FD5D14, 10%) !important;
+        color: #fff !important;
+    }
+    .btn:hover {
+        background-color: #040F28 !important; // Replace with your template's primary color if different
+        border-color: #040F28 !important;
+    }
+}
+
+.custom-pagination {
+    margin-top: 1rem;
+    pagination-controls {
+        ul.pagination {
+            display: flex;
+            justify-content: center;
+            padding-left: 0;
+            list-style: none;
+            border-radius: 0.25rem;
+            margin: 0;
+            li.page-item {
+                margin: 0 0.25rem;
+                a.page-link {
+                    display: block;
+                    padding: 0.5rem 0.75rem;
+                    color: #0d6efd;
+                    background-color: #fff;
+                    border: 1px solid #dee2e6;
+                    border-radius: 0.25rem;
+                    text-decoration: none;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #e9ecef;
+                        border-color: #ced4da;
+                    }
+                }
+                &.active a.page-link {
+                    color: #fff;
+                    background-color: #0d6efd;
+                    border-color: #0d6efd;
+                    cursor: default;
+                }
+            }
+        }
+    }
+}
+
+.custom-pagination {
+    text-align: center; // Center the pagination
+    margin-top: 1rem;
+    // This is needed if you place ngthe styles in a component SCSS file
+    // to override ngx-pagination's default styles.
+     ::ng-deep {
+        .ngx-pagination {
+            display: inline-block;
+            margin: 0;
+            // Links (Previous, Next, page numbers)
+            .pointer {
+                cursor: pointer;
+                color: #999;
+                text-decoration: none;
+                margin: 0 0.4rem;
+                padding: 0.4rem 0.6rem;
+                border-radius: 4px;
+                &:hover:not(.disabled) {
+                    background-color: #f1f1f1;
+                    color: #0d6efd;
+                }
+            }
+            // Current page styling (blue background, white text)
+            .current {
+                background-color: #ed5508;
+                color: #fff !important;
+                border: 1px solid #fd690d;
+                padding: 0.4rem 0.6rem;
+                border-radius: 4px;
+                margin: 0 0.4rem;
+            }
+            // Disabled links (grayed out, no pointer)
+            .disabled {
+                color: #ccc !important;
+                cursor: default;
+            }
+        }
+    }
+}

@@ -1,0 +1,92 @@
+<div class="container py-5">
+    <!-- At-Risk Projects Banner -->
+    <div *ngIf="atRiskProjects && atRiskProjects.length > 0" class="alert alert-danger">
+        <h4 class="alert-heading">Warning: At-Risk Projects</h4>
+        <p>The following project(s) have a high percentage of delayed livrables:</p>
+        <ul>
+            <li *ngFor="let risk of atRiskProjects">
+                <strong>{{ risk.project.nom }}</strong> - Delayed: {{ risk.percentageDelayed | number:'1.0-1' }}% ({{ risk.deliveredCount }} delivered out of {{ risk.totalLivrables }})
+                <button class="btn btn-sm btn-warning mx-2" (click)="keepProjet(risk.project)">Keep</button>
+                <button class="btn btn-sm btn-danger" (click)="terminateProjet(risk.project)">Terminate</button>
+            </li>
+        </ul>
+        <p>Please review these projects immediately.</p>
+    </div>
+
+    <!-- Filter Controls -->
+    <div class="mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Search projects by name or description" [(ngModel)]="searchTerm">
+            </div>
+            <div class="col-md-6">
+                <select class="form-select" [(ngModel)]="selectedEtat">
+            <option value="">All statuses</option>
+            <!-- Replace with your actual status options. Example: -->
+            <option value="Active">Active</option>
+            <option value="Pending">Pending</option>
+            <option value="Closed">Closed</option>
+          </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title text-center">
+        <h2 class="text-center mb-4">Pending & Approved Projects</h2>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p>Loading projects...</p>
+    </div>
+
+    <!-- Projects Table -->
+    <div class="table-responsive" *ngIf="!loading && filteredProjets.length > 0">
+        <table class="table table-hover table-bordered text-center shadow-sm">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Budget</th>
+                    <th>Approval</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let projet of filteredProjets" [ngClass]="{'table-danger': terminatedProjectIds.includes(projet.id)}">
+                    <td class="fw-bold">{{ projet.nom }}</td>
+                    <td>{{ projet.etat }}</td>
+                    <td>{{ projet.description }}</td>
+                    <td>{{ projet.dateDebut }}</td>
+                    <td>{{ projet.dateFinPrevue || 'N/A' }}</td>
+                    <td>${{ projet.budget | number }}</td>
+                    <td>
+                        <span class="badge" [ngClass]="{'bg-danger': !projet.approved, 'bg-success': projet.approved}">
+                {{ projet.approved ? 'Approved' : 'Pending' }}
+              </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm mx-1 btn-outline-success" (click)="approveProjet(projet)" [disabled]="projet.approved || terminatedProjectIds.includes(projet.id)">
+                <i class="fas" [ngClass]="projet.approved ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                {{ projet.approved ? 'Approved' : 'Approve' }}
+              </button>
+                        <button *ngIf="isProjectAtRisk(projet)" class="btn btn-sm btn-danger" (click)="terminateProjet(projet)">
+                <i class="fas fa-skull-crossbones"></i> Terminate
+              </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Projects Message -->
+    <div *ngIf="!loading && filteredProjets.length === 0" class="text-center mt-4">
+        <div class="alert alert-info shadow-sm">
+            <i class="fas fa-info-circle"></i> No projects available.
+        </div>
+    </div>
+</div>

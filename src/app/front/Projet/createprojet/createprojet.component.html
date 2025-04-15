@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<div class="create-projet-container">
+    <h2>Create a New Project</h2>
+
+    <!-- ✅ Show approval message -->
+    <div *ngIf="showApprovalMessage" class="alert alert-warning text-center">
+        <i class="fas fa-clock"></i> Waiting for project approval. You will be notified when it's done.
+    </div>
+
+    <form [formGroup]="projetForm" (ngSubmit)="onSubmit()">
+        <!-- Project Name -->
+        <div class="form-group">
+            <label for="nom">Project Name</label>
+            <input type="text" id="nom" formControlName="nom" class="form-control" />
+            <div *ngIf="getControl('nom').invalid && getControl('nom').touched" class="error">
+                Project name is required.
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="description" class="form-control"></textarea>
+            <div *ngIf="getControl('description').invalid && getControl('description').touched" class="error">
+                Description is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dateDebut">Start Date</label>
+            <input type="date" id="dateDebut" formControlName="dateDebut" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="dateFinPrevue">Expected End Date</label>
+            <input type="date" id="dateFinPrevue" formControlName="dateFinPrevue" class="form-control" />
+
+            <!-- ✅ Fix: Properly Access Validation Errors -->
+            <div *ngIf="projetForm.hasError('dateInvalid')">
+                <span class="error">End Date must be after Start Date!</span>
+            </div>
+        </div>
+
+        <!-- Budget -->
+        <div class="form-group">
+            <label for="budget">Budget ($)</label>
+            <input type="number" id="budget" formControlName="budget" class="form-control" />
+            <div *ngIf="getControl('budget').invalid && getControl('budget').touched" class="error">
+                Budget must be a positive number.
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+            <label for="etat">Project Status</label>
+            <input type="text" id="etat" formControlName="etat" class="form-control" readonly />
+        </div>
+
+        <!-- Responsable -->
+        <div class="form-group">
+            <label for="responsable">Project Manager</label>
+            <input type="text" id="responsable" formControlName="responsable" class="form-control" />
+            <div *ngIf="getControl('responsable').invalid && getControl('responsable').touched" class="error">
+                Responsible person is required.
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit" [disabled]="projetForm.invalid">Create Project</button>
+    </form>
+</div>
+<app-footer></app-footer>

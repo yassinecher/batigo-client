@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+<div class="container py-5">
+    <div class="section-title text-center">
+        <h1 class="display-4 text-primary">Livrables</h1>
+        <p class="lead">Liste des livrables disponibles</p>
+    </div>
+
+    <!-- New Button to Navigate to Calendar -->
+    <div class="text-center mb-4">
+        <button class="btn btn-primary" [routerLink]="['/calendar']">
+            <i class="fas fa-calendar-alt"></i> View Calendar
+        </button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
+        {{ errorMessage }}
+    </div>
+
+    <!-- Grouped Livrables by Project -->
+    <div *ngIf="!isLoading && groupedLivrables.length > 0">
+        <div *ngFor="let group of groupedLivrables" class="project-livrables mb-5">
+            <!-- Project Name -->
+            <h2 class="project-name mb-4 text-success">
+                {{ group.projectName }}
+            </h2>
+
+            <!-- Livrables for this project -->
+            <div class="livrables-list">
+                <div class="card shadow-sm mb-4 livrable-card" *ngFor="let liv of group.livrables">
+                    <!-- Card Header: Title + Buttons -->
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="card-title m-0">
+                            <i class="fas fa-file-alt me-2"></i>{{ liv.nom }}
+                        </h5>
+                        <div class="livrable-actions">
+                            <button class="btn btn-sm btn-primary me-2" (click)="editLivrable(liv.id!)">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger" (click)="deleteLivrable(liv.id!)">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Card Body: Details -->
+                    <div class="card-body">
+                        <p class="mb-2">
+                            <i class="fas fa-tags text-muted me-2"></i>
+                            <strong>Type:</strong> {{ liv.type }}
+                        </p>
+                        <p class="mb-2">
+                            <i class="fas fa-exclamation-circle text-muted me-2"></i>
+                            <strong>Status:</strong>
+                            <span *ngIf="liv.overdue" class="text-danger">Overdue</span>
+                            <span *ngIf="!liv.overdue" class="text-success">On Time</span>
+                        </p>
+                        <p class="mb-2">
+                            <i class="fas fa-calendar-day text-muted me-2"></i>
+                            <strong>Date Remise Prévue:</strong> {{ liv.dateRemisePrevue | date: 'yyyy-MM-dd' }}
+                        </p>
+                        <p class="mb-2">
+                            <i class="fas fa-calendar-check text-muted me-2"></i>
+                            <strong>Date Remise Réelle:</strong> {{ liv.dateRemiseReelle ? (liv.dateRemiseReelle | date: 'yyyy-MM-dd') : 'N/A' }}
+                        </p>
+                        <p class="mb-0">
+                            <i class="fas fa-comment text-muted me-2"></i>
+                            <strong>Commentaire:</strong> {{ liv.commentaire || 'No comment' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- No Livrables Found -->
+    <p *ngIf="!isLoading && groupedLivrables.length === 0" class="text-center text-muted">
+        Aucun livrable trouvé.
+    </p>
+</div>
+<app-footer></app-footer>

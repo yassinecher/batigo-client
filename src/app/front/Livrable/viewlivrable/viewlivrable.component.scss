@@ -1,0 +1,34 @@
+.project-livrables {
+    .project-name {
+        font-weight: 700;
+        font-size: 1.75rem;
+        color: #28a745; // or your brand color
+    }
+    .livrables-list {
+        .livrable-card {
+            border: 1px solid #e6e6e6;
+            border-radius: 6px;
+            .card-header {
+                background-color: #f8f9fa; // Slightly gray
+                font-weight: 600;
+            }
+            .card-body {
+                p {
+                    font-size: 0.95rem;
+                    color: #555;
+                }
+                strong {
+                    color: #333;
+                }
+            }
+            .livrable-actions {
+                .btn {
+                    font-size: 0.85rem;
+                    i {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

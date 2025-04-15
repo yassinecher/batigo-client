@@ -1,0 +1,70 @@
+/* planification-calendar.component.scss */
+
+
+/* Increase the base font size for event text */
+
+::ng-deep .fc-daygrid-event {
+    font-size: 0.95rem;
+    /* Adjust as you prefer */
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+
+/* Make the calendar's header title bigger and colored */
+
+ ::ng-deep .fc .fc-toolbar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+    /* Use your brand color or Bootstrap var */
+}
+
+
+/* Optional: style the day numbers */
+
+ ::ng-deep .fc-daygrid-day-number {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+// Ensure the Add button appears only on hover with a smooth transition
+::ng-deep .fc-add-livrable-btn {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+// (Optional) Adjust additional event text styling if needed.
+ ::ng-deep .fc-daygrid-event {
+    font-size: 1rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+::ng-deep .fc-daygrid-event {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.4rem 0.6rem;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+ ::ng-deep .fc-daygrid-event:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+ ::ng-deep .fc .fc-toolbar-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+
+/* Optional: styling for the custom event content */
+
+ ::ng-deep .fc-event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
