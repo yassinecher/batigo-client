@@ -1,0 +1,92 @@
+<h2 class="text-center my-4 display-6 fw-bold text-primary">📋 Liste des Incidents</h2>
+
+<div class="container bg-white p-4 rounded shadow-sm">
+  <div class="d-flex justify-content-end mb-3 gap-2">
+    <a routerLink="/incident/stat/incident" class="btn btn-outline-warning">
+      📊 Statistique
+    </a>
+    <a routerLink="/incident/create" class="btn btn-primary">
+      ➕ Ajouter un Incident
+    </a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>ID</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Gravité</th>
+          <th>État</th>
+          <th>Responsable</th>
+          <th>Inspections</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let incident of incidents" class="text-center">
+          <td>{{ incident.id }}</td>
+          <td>{{ incident.description }}</td>
+          <td>{{ incident.date | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <span [ngClass]="{
+              'badge bg-danger': incident.gravite === 'Élevée',
+              'badge bg-warning text-dark': incident.gravite === 'Moyenne',
+              'badge bg-success': incident.gravite === 'Faible'
+            }">
+              {{ incident.gravite }}
+            </span>
+          </td>
+          <td>
+            <span [ngClass]="{
+              'badge bg-secondary': incident.etat === 'Ouvert',
+              'badge bg-success': incident.etat === 'Résolu',
+              'badge bg-info': incident.etat === 'En cours'
+            }">
+              {{ incident.etat }}
+            </span>
+          </td>
+          <td>{{ incident.responsable }}</td>
+          <td>
+            <a [routerLink]="['/inspections/listinsp', incident.id]" class="btn btn-sm btn-info">
+              🔍 Voir
+            </a>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center gap-2">
+              <a [routerLink]="['/incident/manage', incident.id]" class="btn btn-sm btn-outline-warning">
+                ✏️ Modifier
+              </a>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteIncident(incident.id)">
+                🗑️ Supprimer
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Chatbot -->
+<div class="chatbot-btn position-fixed bottom-0 end-0 m-4">
+  <button class="btn btn-primary rounded-circle shadow" (click)="toggleChatbot()">
+    <i class="bi bi-chat"></i>
+  </button>
+</div>
+
+<div class="chatbot-box shadow" *ngIf="chatbotVisible">
+  <div class="chatbot-header d-flex justify-content-between align-items-center p-2 bg-primary text-white rounded-top">
+    <h5 class="mb-0">Chatbot</h5>
+    <button (click)="toggleChatbot()" class="btn-close btn-close-white"></button>
+  </div>
+  <div class="chatbot-content p-2 bg-light rounded-bottom">
+    <iframe
+      src="https://www.chatbase.co/chatbot-iframe/0eOLC7ad99e-O995fZUzH"
+      width="100%"
+      style="min-height: 400px;"
+      frameborder="0">
+    </iframe>
+  </div>
+</div>

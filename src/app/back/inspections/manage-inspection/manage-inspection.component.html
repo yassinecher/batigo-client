@@ -1,0 +1,48 @@
+<div class="form-container bg-white p-4 rounded shadow-sm">
+  <h2 class="text-center text-primary mb-4">✏️ Modifier l'Inspection #{{ inspectionId }}</h2>
+
+  <form [formGroup]="editInspectionForm" (ngSubmit)="onSubmit()" class="simple-form">
+
+    <!-- Responsable -->
+    <div class="form-group mb-3">
+      <label class="form-label fw-semibold">Responsable :</label>
+      <input type="text" class="form-control" formControlName="responsable"
+             [ngClass]="{'is-invalid': f['responsable'].invalid && f['responsable'].touched}">
+      <div class="invalid-feedback" *ngIf="f['responsable'].errors?.['required']">Ce champ est requis</div>
+      <div class="invalid-feedback" *ngIf="f['responsable'].errors?.['minlength']">Minimum 3 caractères</div>
+    </div>
+
+    <!-- Objet -->
+    <div class="form-group mb-3">
+      <label class="form-label fw-semibold">Objet :</label>
+      <input type="text" class="form-control" formControlName="objet"
+             [ngClass]="{'is-invalid': f['objet'].invalid && f['objet'].touched}">
+      <div class="invalid-feedback" *ngIf="f['objet'].errors?.['required']">Ce champ est requis</div>
+    </div>
+
+    <!-- Date -->
+    <div class="form-group mb-3">
+      <label class="form-label fw-semibold">Date :</label>
+      <input type="date" class="form-control" formControlName="dateInspection"
+             [ngClass]="{'is-invalid': f['dateInspection'].invalid && f['dateInspection'].touched}">
+      <div class="invalid-feedback" *ngIf="f['dateInspection'].errors?.['required']">Date requise</div>
+    </div>
+
+    <!-- Résultat -->
+    <div class="form-group mb-4">
+      <label class="form-label fw-semibold">Résultat :</label>
+      <select class="form-select" formControlName="resultat"
+              [ngClass]="{'is-invalid': f['resultat'].invalid && f['resultat'].touched}">
+        <option value="" disabled>-- Sélectionnez un résultat --</option>
+        <option *ngFor="let option of resultatOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="f['resultat'].errors?.['required']">Résultat requis</div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-outline-secondary" (click)="backToList()">❌ Annuler</button>
+      <button type="submit" class="btn btn-success" [disabled]="!editInspectionForm.valid">💾 Mettre à jour</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,45 @@
+<h2 class="text-center my-4 text-primary display-6 fw-bold">
+  🧾 Liste des Inspections – Incident #{{ incidentId }}
+</h2>
+
+<div class="container bg-white p-4 rounded shadow-sm">
+  <div class="d-flex justify-content-end mb-3">
+    <a [routerLink]="['/inspections/create', incidentId]" class="btn btn-success">
+      ➕ Ajouter une Inspection
+    </a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>ID</th>
+          <th>Responsable</th>
+          <th>Objet</th>
+          <th>Date</th>
+          <th>Résultat</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inspection of inspections" class="text-center">
+          <td>{{ inspection.id }}</td>
+          <td>{{ inspection.responsable }}</td>
+          <td>{{ inspection.objet }}</td>
+          <td>{{ inspection.dateInspection | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ inspection.resultat }}</td>
+          <td>
+            <div class="d-flex justify-content-center gap-2">
+              <a [routerLink]="['/inspections/manage', inspection.id]" class="btn btn-outline-warning btn-sm">
+                ✏️ Modifier
+              </a>
+              <button class="btn btn-outline-danger btn-sm" (click)="deleteInspection(inspection.id)">
+                🗑️ Supprimer
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
