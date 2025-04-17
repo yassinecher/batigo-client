@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">{{ projet.nom }}</h2>
+        </div>
+        <div class="card-body">
+            <p class="lead"><strong>Type:</strong> 
+                <span class="badge" [ngClass]="{
+                    'bg-success': projet.type === 'BATIMENT',
+                    'bg-warning': projet.type === 'ROUTE',
+                    'bg-info': projet.type === 'PONT'
+                }">
+                    {{ projet.type }}
+                </span>
+            </p>
+            <p class="lead"><strong>Adresse:</strong> {{ projet.adresse }}</p>
+        </div>
+        <div class="card-footer text-end">
+            <button class="btn btn-secondary me-2" (click)="goBack()">Retour</button>
+        </div>
+    </div>
+</div>

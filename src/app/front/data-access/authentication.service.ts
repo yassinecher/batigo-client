@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 interface User {
   token: string;
   email: string;
   name?: string;
 }
-
+interface AuthResponse {
+  access_token: string;
+  refresh_token: string;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private apiUrl = 'https://your-api-url'; // Replace with your API URL
+  private apiUrl = `${environment.apiUrl}api/v1/auth`;
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/login`, { email, password });
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/authenticate`, { email, password });
   }
 
-  register(name: string, email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/register`, { name, email, password });
+  register(firstname: string,lastname: string, email: string,phoneNumber:string, password: string,gender:string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { firstname,lastname, email,phoneNumber, password,gender });
   }
 
   // Save user data in localStorage

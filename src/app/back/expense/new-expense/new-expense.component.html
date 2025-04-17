@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Add Expense</h2>
+  <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+
+    <!-- Montant -->
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input id="amount" type="number" class="form-control" formControlName="amount" aria-invalid="true"/>
+      <div *ngIf="hasError('amount', 'required')" class="text-danger">Amount is required</div>
+      <div *ngIf="hasError('amount', 'min')" class="text-danger">Amount must be greater than 0</div>
+    </div>
+
+    <!-- Date -->
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input id="date" type="date" class="form-control" formControlName="date" aria-invalid="true"/>
+      <div *ngIf="hasError('date', 'required')" class="text-danger">Date is required</div>
+      <div *ngIf="hasError('date', 'invalidDate')" class="text-danger">Date must be today or later</div>
+    </div>
+
+    <!-- Source -->
+    <div class="form-group">
+      <label for="source">Source</label>
+      <input id="source" type="text" class="form-control" formControlName="source" aria-invalid="true"/>
+      <div *ngIf="hasError('source', 'required')" class="text-danger">Source is required</div>
+      <div *ngIf="hasError('source', 'minlength')" class="text-danger">Source must have at least 3 characters</div>
+    </div>
+
+    <!-- Sélecteur de compte -->
+    <div class="form-group">
+      <label for="projetId">Projet</label>
+      <select id="projetId" class="form-control" formControlName="projetId" aria-invalid="true">
+        <option value="">Select Projet</option>
+        <option *ngFor="let projet of projets" [value]="projet.id">
+        {{ projet.nom }} - {{ projet.type }}
+        </option>
+      </select>
+      <div *ngIf="hasError('projetId', 'required')" class="text-danger">Please select an projet</div>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <button type="submit" class="btn btn-primary" [disabled]="expenseForm.invalid">
+      Submit
+    </button>
+
+  </form>
+</div>

@@ -4,16 +4,36 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Routes, RouterModule, RouterLink } from "@angular/router";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { DashboardComponent } from "./dashboard.component";
-import { SalesSummaryComponent } from "./dashboard-components/sales-summary/sales-summary.component";
+import { NgxPaginationModule } from 'ngx-pagination';
 import { FeedsComponent } from "./dashboard-components/feeds/feeds.component";
 import { TopSellingComponent } from "./dashboard-components/top-selling/top-selling.component";
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
 import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards.component";
-import { AccountComponent } from "../account/account.component";
+ 
 import { ExpenseComponent } from "../expense/index/index.component";
 import { IncomeComponent } from "../income/index/index.component";
-import { NewAccountComponent } from "../account/new-account/new-account.component";
+ 
 import { NewIncomeComponent } from "../income/new-income/new-income.component";
+ 
+import { ShowIncomeComponent } from "../income/show-income/show-income.component";
+import { EditIncomeComponent } from "../income/edit-income/edit-income.component";
+import { EditExpenseComponent } from "../expense/edit-expense/edit-expense.component";
+import { ShowExpenseComponent } from "../expense/show-expense/show-expense.component";
+import { NewExpenseComponent } from "../expense/new-expense/new-expense.component";
+import { EditProjetComponent } from "../projet/edit-projet/edit-projet.component";
+import { NewProjetComponent } from "../projet/new-projet/new-projet.component";
+import { ShowProjetComponent } from "../projet/show-projet/show-projet.component";
+import { ProjetComponent } from "../projet/projet.component";
+import { ProjectStatisticsComponent } from './dashboard-components/project-statistics/project-statistics.component';
+import { PerformanceComponent } from './dashboard-components/performance/performance.component';
+ 
+ 
+ 
+
+ 
+
+ 
+ 
 
 const routes: Routes = [
   {
@@ -25,15 +45,26 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: "accounts",
-    component: AccountComponent, 
+    path: "projets",
+    component: ProjetComponent, 
      
   },
   {
-    path: "accounts/new",
-    component: NewAccountComponent, 
+    path: "projets/new",
+    component: NewProjetComponent, 
      
   },
+  {
+    path: "projets/edit/:id",
+    component: EditProjetComponent, 
+     
+  },
+  {
+    path: "projets/:id",
+    component: ShowProjetComponent, 
+     
+  },
+  
   {
     path: "expense",
     component: ExpenseComponent, 
@@ -41,6 +72,24 @@ const routes: Routes = [
       title: "Expenses",
       urls: [{ title: "Expenses", url: "/expense" }, { title: "Expenses" }],
     },
+  },
+  {
+    path: "expense/new",
+    component: NewExpenseComponent , 
+    data: {
+      title: "expenses",
+      urls: [{ title: "expenses", url: "/expense/new" }, { title: "expenses" }],
+    },
+  },
+  {
+    path: "expense/:id",
+    component:  ShowExpenseComponent, 
+     
+  },
+  {
+    path: "expense/edit/:id",
+    component:  EditExpenseComponent, 
+     
   },
   {
     path: "income",
@@ -58,6 +107,16 @@ const routes: Routes = [
       urls: [{ title: "incomes", url: "/income/new" }, { title: "incomes" }],
     },
   },
+  {
+    path: "income/:id",
+    component: ShowIncomeComponent, 
+     
+  },
+  {
+    path: "income/edit/:id",
+    component: EditIncomeComponent, 
+     
+  },
 ];
 
 @NgModule({
@@ -67,15 +126,28 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     NgApexchartsModule,
-    RouterLink
+    NgxPaginationModule,
+    RouterLink,
+    
+     
+
   ],
   declarations: [
     DashboardComponent,
-    SalesSummaryComponent,
+    
     FeedsComponent,
     TopSellingComponent,
     TopCardsComponent,
-    BlogCardsComponent
+    BlogCardsComponent,
+    ProjectStatisticsComponent,
+    PerformanceComponent
+    
+     
+
+ 
+
+     
+    
   ],
 })
 export class DashboardModule {}

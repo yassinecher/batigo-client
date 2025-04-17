@@ -1,0 +1,34 @@
+<div class="container">
+    <h2> Expense Details</h2>
+    
+    <div *ngIf="expense">
+      <div class="card">
+        <div class="card-header">
+          <h3>Expense Information</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>Amount:</strong> {{ expense.amount | currency }}
+            </li>
+            <li class="list-group-item">
+              <strong>Date:</strong> {{ expense.date | date:'yyyy-MM-dd' }}
+            </li>
+            <li class="list-group-item">
+              <strong>Source:</strong> {{ expense.source }}
+            </li>
+            <li class="list-group-item">
+              <strong>Projet:</strong> 
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <button class="btn btn-primary mt-3" (click)="goBack()">Back</button>
+    </div>
+  
+    <div *ngIf="!expense">
+      <p>No expense details available.</p>
+    </div>
+  </div>
+  

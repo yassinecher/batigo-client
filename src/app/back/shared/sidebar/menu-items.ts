@@ -11,8 +11,8 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/dashboard/accounts',
-    title: 'Financial accounts',
+    path: '/dashboard/projets',
+    title: 'Financial projets',
     icon: 'bi bi-credit-card',
     class: '',
     extralink: false,
@@ -32,6 +32,15 @@ export const ROUTES: RouteInfo[] = [
     path: '/dashboard/income',
     title: 'Incomes',
     icon: 'bi bi-graph-up-arrow',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+   {
+
+    path: '/users',
+    title: 'Users',
+    icon: 'bi bi-person',
     class: '',
     extralink: false,
     submenu: []

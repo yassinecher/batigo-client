@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>Add Projet</h2>
+    <form [formGroup]="projetForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nom">Projet Name</label>
+        <input
+          id="nom"
+          type="text"
+          class="form-control"
+          formControlName="nom"
+          [ngClass]="{ 'is-invalid': projetForm.get('nom')?.invalid && projetForm.get('nom')?.touched }"
+        />
+        <div *ngIf="projetForm.get('nom')?.invalid && projetForm.get('nom')?.touched" class="invalid-feedback">
+          <div>Name is required.</div>
+          <div *ngIf="projetForm.get('nom')?.hasError('minlength')">Name must be at least 3 characters long.</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="adresse">Adresse</label>
+        <input
+          id="adresse"
+          type="text"
+          class="form-control"
+          formControlName="adresse"
+          [ngClass]="{ 'is-invalid': projetForm.get('adresse')?.invalid && projetForm.get('adresse')?.touched }"
+        />
+        <div *ngIf="projetForm.get('adresse')?.invalid && projetForm.get('adresse')?.touched" class="invalid-feedback">
+          <div>Adresse is required.</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="type">Projet Type</label>
+        <select
+          id="type"
+          class="form-control"
+          formControlName="type"
+          [ngClass]="{ 'is-invalid': projetForm.get('type')?.invalid && projetForm.get('type')?.touched }"
+        >
+          <option value="">Select Type</option>
+          <option value="BATIMENT">Batiment</option>
+          <option value="ROUTE">Route</option>
+          <option value="PONT">Pont</option>
+        </select>
+        <div *ngIf="projetForm.get('type')?.invalid && projetForm.get('type')?.touched" class="invalid-feedback">
+          <div>Type is required.</div>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="projetForm.invalid">Submit</button>
+    </form>
+  </div>
+  

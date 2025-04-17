@@ -1,90 +1,38 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ChartComponent,
-  ApexDataLabels,
-  ApexYAxis,
-  ApexLegend,
-  ApexXAxis,
-  ApexTooltip,
-  ApexTheme,
-  ApexGrid
-} from 'ng-apexcharts';
-
-export type salesChartOptions = {
-  series: ApexAxisChartSeries | any;
-  chart: ApexChart | any;
-  xaxis: ApexXAxis | any;
-  yaxis: ApexYAxis | any;
-  stroke: any;
-  theme: ApexTheme | any;
-  tooltip: ApexTooltip | any;
-  dataLabels: ApexDataLabels | any;
-  legend: ApexLegend | any;
-  colors: string[] | any;
-  markers: any;
-  grid: ApexGrid | any;
-};
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+ 
+import { ServiceFinance } from 'src/service/ServiceFinance';
 
 @Component({
   selector: 'app-sales-summary',
-  templateUrl: './sales-summary.component.html'
+  standalone: true,
+  imports: [CommonModule], // Ajoutez ceci
+  templateUrl: './sales-summary.component.html',
+   
+  
 })
-export class SalesSummaryComponent implements OnInit {
+export class ProjectStatisticsComponent implements OnInit {
+  projectId: number;
+  totalIncomes: number = 0;
+  totalExpenses: number = 0;
+  balance: number = 0;
 
-  @ViewChild("chart") chart: ChartComponent = Object.create(null);
-  public salesChartOptions: Partial<salesChartOptions>;
-  constructor() {
-    this.salesChartOptions = {
-      series: [
-        {
-          name: "Iphone 13",
-          data: [0, 31, 40, 28, 51, 42, 109, 100],
-        },
-        {
-          name: "Oneplue 9",
-          data: [0, 11, 32, 45, 32, 34, 52, 41],
-        },
-      ],
-      chart: {
-        fontFamily: 'Nunito Sans,sans-serif',
-        height: 250,
-        type: 'area',
-        toolbar: {
-          show: false
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: 'smooth',
-        width: '1',
-      },
-      grid: {
-        strokeDashArray: 3,
-      },
-
-      xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "Aug",
-        ],
-      },
-      tooltip: {
-        theme: 'dark'
-      }
-    };
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private ServiceFinance: ServiceFinance
+  ) {}
 
   ngOnInit(): void {
-  }
+    this.projectId = +this.route.snapshot.paramMap.get('projectId')!;
 
+    this.ServiceFinance.getProjetStatistics(this.projectId).subscribe({
+      next: (stats) => {
+        this.totalIncomes = stats.totalIncomes;
+        this.totalExpenses = stats.totalExpenses;
+        this.balance = stats.balance;
+      },
+      error: (err) => console.error('Error fetching project statistics:', err)
+    });
+  }
 }

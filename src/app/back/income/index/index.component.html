@@ -1,1 +1,46 @@
-<p>index works!</p>
+<div class="container mt-4">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+      <h2 class="mb-0">Liste des Incomes</h2>
+    </div>
+    <div class="card-body">
+      
+      <!-- Barre de recherche avec icône -->
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <input type="text" class="form-control" placeholder="Rechercher..." [(ngModel)]="searchText" (input)="filterIncomes()">
+      </div>
+
+      <table class="table table-striped table-hover">
+        <thead class="table-dark text-uppercase text-center">
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Solde</th>
+            <th>SOURCE</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let income of filteredIncomes | paginate: { itemsPerPage: 3, currentPage: currentPage }" class="text-center">
+            <td>{{ income.id }}</td>
+            <td>{{ income.date | date:'yyyy-MM-dd' }}</td>
+            <td>{{ income.amount }} TND</td>
+            <td>{{ income.source }}</td>
+            <td>
+              <a class="btn btn-success" [routerLink]="['/dashboard/income/', income.id]">Show</a>
+              <a class="btn btn-warning mx-2" [routerLink]="['/dashboard/income/edit', income.id]">Edit</a>
+              <button (click)="onDelete(income.id)" class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
+    </div>
+  </div>
+  <a class="btn btn-secondary mt-3" [routerLink]="['/dashboard/income/new']">New Income</a>
+</div>
