@@ -37,7 +37,7 @@ Before setting up the project, ensure you have the following installed:
 ## Installation
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/construction-management-system.git
+   git clone https://github.com/yassinecher/batigo-client.git
    cd construction-management-system
    ```
 
