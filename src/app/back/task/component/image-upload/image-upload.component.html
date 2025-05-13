@@ -1,0 +1,33 @@
+<div class="container">
+    <h2>Architecture Plan Analyzer</h2>
+    <div class="upload-section">
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+      <button (click)="uploadImage()" [disabled]="!selectedFile">Upload and Analyze</button>
+    </div>
+  
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+  
+    <div *ngIf="results" class="results">
+      <h3>Building Parameters</h3>
+      <p>Building Space: {{ results.building_space }} sqm</p>
+      <p>Floors: {{ results.floors }}</p>
+      <p>Windows: {{ results.windows }}</p>
+      <p>Doors: {{ results.doors }}</p>
+      <p>Stairs: {{ results.stairs }}</p>
+    </div>
+  
+    <div *ngIf="tasks.length > 0" class="tasks">
+      <h3>Construction Tasks</h3>
+      <p>Total Duration: {{ totalDuration }} days</p>
+      <ul>
+        <li *ngFor="let task of tasks">
+          <strong>{{ task.name }}</strong>: {{ task.description }} ({{ task.durationDays }} days)
+          <span *ngIf="task.dependencies.length > 0">
+            Dependencies: {{ task.dependencies.join(', ') }}
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>

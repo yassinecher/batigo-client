@@ -1,0 +1,63 @@
+<form (ngSubmit)="onSubmit(fournisseurForm)" #fournisseurForm="ngForm">
+  <div class="row">
+    <!-- Name -->
+    <div class="col-md-6 mb-3">
+      <label for="nom" class="form-label">Name</label>
+      <input type="text" id="nom" class="form-control" [(ngModel)]="fournisseur.nom" name="nom" required #nom="ngModel">
+      <div *ngIf="nom.invalid && nom.touched" class="text-danger">Le nom est requis.</div>
+    </div>
+
+    <!-- Address -->
+    <div class="col-md-6 mb-3">
+      <label for="adresse" class="form-label">Adress</label>
+      <input type="text" id="adresse" class="form-control" [(ngModel)]="fournisseur.adresse" name="adresse" required
+        #adresse="ngModel">
+      <div *ngIf="adresse.invalid && adresse.touched" class="text-danger">L'adresse est requise.</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Email -->
+    <div class="col-md-6 mb-3">
+      <label for="email" class="form-label">Mail</label>
+      <input type="email" id="email" class="form-control" [(ngModel)]="fournisseur.email" name="email" required
+        #email="ngModel">
+      <div *ngIf="email.invalid && email.touched" class="text-danger">L'email est requis.</div>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="col-md-6 mb-3">
+      <label for="tel" class="form-label">Phone number</label>
+      <input type="text" id="tel" class="form-control" [(ngModel)]="fournisseur.tel" name="tel" required #tel="ngModel">
+      <div *ngIf="tel.invalid && tel.touched" class="text-danger">Le téléphone est requis.</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Matricule -->
+    <div class="col-md-6 mb-3">
+      <label for="matricule" class="form-label">Matricule</label>
+      <input type="text" id="matricule" class="form-control" [(ngModel)]="fournisseur.matricule" name="matricule"
+        required #matricule="ngModel">
+      <div *ngIf="matricule.invalid && matricule.touched" class="text-danger">Le matricule est requis.</div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <!-- Status -->
+    <div class="col-md-6 mb-3">
+      <label for="statut" class="form-label">Status</label>
+      <select id="statut" class="form-select" [(ngModel)]="fournisseur.statut" name="statut" required #statut="ngModel">
+        <option value="" disabled selected>Choisir un statut</option>
+        <option value="actif">Actif</option>
+        <option value="inactif">Inactif</option>
+      </select>
+      <div *ngIf="statut.invalid && statut.touched" class="text-danger">Le statut est requis.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary" [disabled]="!fournisseurForm.valid">Update</button>
+  </div>
+</form>

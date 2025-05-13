@@ -1,0 +1,116 @@
+/* Style global pour le formulaire */
+form {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style des lignes du formulaire */
+  .row {
+    margin-bottom: 20px;
+  }
+  
+  /* Style des labels */
+  .form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+  
+  /* Style des champs de saisie (inputs et selects) */
+  input.form-control,
+  select.form-select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  input.form-control:focus,
+  select.form-select:focus {
+    border-color: #4e73df;
+    outline: none;
+    background-color: #fff;
+  }
+  
+  /* Style des messages d'erreur */
+  .text-danger {
+    font-size: 0.875rem;
+    color: #dc3545;
+    margin-top: 5px;
+  }
+  
+  /* Style des boutons */
+  button[type="submit"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #4e73df;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #375a8b;
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+  }
+  
+  /* Style des colonnes (espacement entre les champs) */
+  .col-md-6 {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  /* Effet de survol sur les inputs */
+  input.form-control:hover,
+  select.form-select:hover {
+    border-color: #4e73df;
+  }
+  
+  /* Espacement global */
+  .mb-3 {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Style spécifique pour le champ "Statut" (sélecteur) */
+  .select-wrapper {
+    position: relative;
+  }
+  
+  .select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    font-size: 1rem;
+    color: #aaa;
+  }
+  
+  /* Responsivité pour les petits écrans */
+  @media (max-width: 768px) {
+    form {
+      padding: 20px;
+      margin: 20px;
+    }
+  
+    button[type="submit"] {
+      font-size: 1rem;
+    }
+  }
+  

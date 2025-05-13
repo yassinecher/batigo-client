@@ -1,0 +1,39 @@
+.card {
+    min-height: 200px;
+    border-radius: 30px;
+    background: #e0e0e0;
+    box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;
+  }
+  .card:hover {
+    min-height: 200px;
+    border-radius: 30px;
+    background: #e7e1de;
+    box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;
+  }
+  .card-body{
+    text-align: center;
+   
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+  }
+  .plus{
+    font-size:60px;
+    color: orange;
+  }
+  .btn-custom:hover{
+    color: orange;
+    background-color: transparent;
+    border-radius: 50px;
+  }
+  .btn-custom{
+
+    background-color: transparent;
+    border-radius: 50px;
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+  }

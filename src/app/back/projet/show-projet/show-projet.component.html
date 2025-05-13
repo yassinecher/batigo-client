@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="project" class="card shadow-lg">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">{{ project.nom || 'Unnamed Project' }}</h2>
+    </div>
+    <div class="card-body">
+      <p class="lead"><strong>Type:</strong> 
+        <span class="badge" [ngClass]="{
+          'bg-success': project.projetType === 'BATIMENT',
+          'bg-warning': project.projetType === 'ROUTE',
+          'bg-info': project.projetType === 'PONT'
+        }">
+          {{ project.projetType || 'N/A' }}
+        </span>
+      </p>
+      <p class="lead"><strong>Adresse:</strong> {{ project.adresse || 'N/A' }}</p>
+      <p class="lead"><strong>Budget:</strong> {{ project.budget  }} TND</p>
+      <p class="lead"><strong>Status:</strong> {{ project.etat || 'N/A' }}</p>
+       <p class="lead" *ngIf="predictedBudget"><strong>Predicted Budget:</strong> {{ predictedBudget }} TND</p>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Financial Overview</h5>
+            <canvas baseChart 
+                    [data]="doughnutChartData"
+                    [options]="doughnutChartOptions"
+                    type="doughnut">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-end">
+      <button class="btn btn-info me-2" (click)="predictBudget()">Predict Budget</button>
+      <button class="btn btn-secondary" (click)="goBack()">Retour</button>
+    </div>
+  </div>
+  <div *ngIf="!project && !errorMessage" class="text-center mt-5">
+    <p>Loading project...</p>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="container py-4">
+    <div class="d-flex flex-column gap-3">
+        <button class="btn btn-primary align-self-start" *ngIf="openForm" (click)="switchOpenFormValue()">
+            Return</button>
+        <a href="/dashboard/cart" class="btn btn-outline-primary position-relative">
+            <i class="bi bi-cart3 me-1 fs-5"></i>
+            Voir le Panier
+        </a>
+
+        <app-form-prduct *ngIf="openForm" (formSubmitted)="onFormSubmitted()"
+            [selectedProduct]="selectedProduct"></app-form-prduct>
+        <div class="d-flex justify-content-between" *ngIf="!openForm">
+            <button class="btn btn-primary align-self-start" (click)="switchOpenFormValue()">Add
+                Product</button>
+            <button class="btn btn-danger align-self-start" (click)="downloadAsPDF()">Download as pdf</button>
+            <button class="btn btn-success align-self-start" (click)="downloadAsExcel()">Download as Excel</button>
+
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Search produits..." [(ngModel)]="searchTerm"
+                    (ngModelChange)="loadProduits()" />
+            </div>
+        </div>
+        <table class="table" *ngIf="!openForm" #pdfTable>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Référence</th>
+                    <th>Categorie</th>
+                    <th>Fournisseur</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Image </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let produit of produits">
+                    <td>{{ produit.id }}</td>
+                    <td>{{ produit.nomP }}</td>
+                    <td>{{ produit.description }}</td>
+                    <td>{{ produit.reference }}</td>
+                    <td>{{ produit?.categorie?.nom }}</td>
+                    <td>{{ produit?.fournisseur?.nom }}</td>
+                    <td>{{produit?.quantity}}</td>
+                    <td>{{produit?.price}}</td>
+                    <td>
+                        <img *ngIf="produit.imageBase64" [src]="produit.imageBase64" alt="Preview"
+                            class="img-thumbnail mt-2" style="max-height: 150px;" />
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column gap-2">
+
+                            <button (click)="changeSelectProduit(produit)"
+                                class="btn btn-warning mb-2 btn-sm">Modifier</button>
+
+                            <button (click)="deleteProduit(produit.id||0)"
+                                class="btn btn-danger mb-2 btn-sm">Delete</button>
+                            <button (click)="addToCart(produit)" class="btn btn-primary mb-2 btn-sm">Ajouter au
+                                panier</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <nav *ngIf="!openForm" class="d-flex justify-content-between align-items-center">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 0" (click)="goToPage(currentPage - 1)">
+                    <a class="page-link">Previous</a>
+                </li>
+
+                <li class="page-item" *ngFor="let page of totalPagesArray; let i = index"
+                    [class.active]="i === currentPage" (click)="goToPage(i)">
+                    <a class="page-link">{{ i + 1 }}</a>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages - 1"
+                    (click)="goToPage(currentPage + 1)">
+                    <a class="page-link">Next</a>
+                </li>
+            </ul>
+            <div>
+                <label for="pageSizeSelect">Items per page:</label>
+                <select id="pageSizeSelect" class="form-select d-inline w-auto ms-2" [(ngModel)]="pageSize"
+                    (change)="onPageSizeChange()">
+                    <option *ngFor="let size of pageSizeOptions" [ngValue]="size">
+                        {{ size }}
+                    </option>
+                </select>
+            </div>
+        </nav>
+    </div>
+</div>

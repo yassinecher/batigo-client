@@ -7,14 +7,14 @@
     <div class="container col-md-5 my-5">
       <ul class="nav nav-pills nav-justified mb-3" id="authTabs">
         <li class="nav-item">
-          <button class="nav-link active" id="tab-login" data-bs-toggle="pill" data-bs-target="#pills-login"
-            type="button">
+          <button #loginTab class="nav-link active" id="tab-login" data-bs-toggle="pill" data-bs-target="#pills-login"
+            type="button" (click)="switchToLogin()">
             Login
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" id="tab-register" data-bs-toggle="pill" data-bs-target="#pills-register"
-            type="button">
+            type="button" (click)="switchToRegister()">
             Register
           </button>
         </li>
@@ -44,7 +44,9 @@
             <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="loginForm.invalid">Sign in</button>
           </form>
         </div>
-
+        <div class="text-end" *ngIf="activeTab === 'login'">
+          <a href="/login" (click)="forgetPassword() ;$event.preventDefault()">Forgot Password?</a>
+        </div>
         <!-- Register Tab -->
         <div class="tab-pane fade" id="pills-register">
           <form [formGroup]="registerForm" (ngSubmit)="register()">
@@ -160,4 +162,5 @@
     </div>
   </div>
 </div>
+
 <app-footer></app-footer>

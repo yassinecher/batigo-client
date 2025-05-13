@@ -1,0 +1,187 @@
+/* Custom properties for consistent styling */
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1e40af;
+    --text-dark: #1e293b;
+    --text-light: #4b5563;
+    --error-color: #ef4444;
+    --background-light: #f9fafb;
+    --card-background: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Root container */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  /* Typography */
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  
+  /* Form styling */
+  form {
+    background: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+  
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  
+  .grid > div {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  
+  label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    display: block;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: var(--background-light);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+  
+  input.ng-invalid.ng-touched {
+    border-color: var(--error-color);
+    background: #fef2f2;
+  }
+  
+  .text-red-500 {
+    color: var(--error-color);
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
+  /* Submit button */
+  button[type="submit"] {
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  button[type="submit"]:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+  
+  button[type="submit"]:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+  }
+  
+  /* Loading indicator */
+  .loading {
+    text-align: center;
+    margin-top: 16px;
+    color: var(--primary-color);
+    font-size: 16px;
+  }
+  
+  /* Error message */
+  .error {
+    margin-top: 16px;
+    padding: 16px;
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 6px;
+  }
+  
+  /* Task cards */
+  .tasks {
+    margin-top: 16px;
+  }
+  
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  
+  .card {
+    background: var(--card-background);
+    border: 1px solid transparent;
+    border-image: linear-gradient(to bottom right, #bfdbfe, #dbeafe) 1;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-hover);
+  }
+  
+  .card p {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-top: 8px;
+  }
+  
+  .card p strong {
+    color: var(--text-dark);
+  }
+  
+  /* Success message */
+  .success {
+    margin-top: 16px;
+    color: #15803d;
+    font-size: 16px;
+  }
+  
+
+  
+  @media (min-width: 768px) {
+    .md\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .lg\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }

@@ -11,7 +11,7 @@ import { User } from './User.model';
 export class UserService {
 
   ApiUrl = environment.apiUrl+"api/v1/";
-   user:User|undefined
+  user:User|undefined
 
   constructor(private http: HttpClient) {
     this.getUserFromDatabase()
@@ -32,7 +32,6 @@ export class UserService {
         tap((response:User) => {
            this.user=response
            this.setUserRole(this.user.role)
-          console.log(response)
           return response
               })
       );
@@ -75,4 +74,10 @@ getUsersList():Observable<User[]>{
             })
     );
 }
+
+updateUser(id: string, data: any) {
+  const url = `${this.ApiUrl}users/${id}`;
+  return this.http.put(url, data);
+}
+
 }

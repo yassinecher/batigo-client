@@ -1,0 +1,73 @@
+
+
+
+
+<app-navbar></app-navbar><div  
+  
+  style="display: flex; " 
+  class="modal modal-backdrop justify-center align-middle m-auto" 
+  id="forgotPasswordModal" 
+  aria-modal="true" 
+  data-aos="fade" 
+  role="dialog">
+  
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable !w-[80%]" style="z-index: 0;">
+    <div class="modal-content mt-5">
+       <div class="modal-body">
+        <div id="forgot-password-modal">
+          <div class="login-form default-form">
+            <div class="form-inner">
+              <h3>Réinitialiser le mot de passe</h3>
+            
+      
+                <!-- Password -->
+                <div class="form-group mb-3">
+                  <label for="password">Email address</label>
+                  <input [(ngModel)]="email"  class="form-control"  type="email">
+                       
+                  <div>{{message}}</div>
+                </div>
+           
+       
+                <!-- Confirm Password -->
+              
+            
+                <!-- Submit Button -->
+                <div class="form-group">
+                  <button (click)="sendmail()" class="theme-btn btn-style-one" type="submit">
+                    Send mail
+                  </button>
+                </div>
+            
+               
+             
+              <!-- Back to Login -->
+              <div class="bottom-box">
+                <div class="text">
+                  Vous vous souvenez de votre mot de passe ? 
+                  <a  href="/login" class="call-modal login" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#loginPopupModal">Connexion</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<ng-template #loading>
+    <div class="flex justify-center items-center h-96">
+     loading.. <!-- Material spinner for loading indication -->
+    </div>
+  </ng-template>
+  <ng-template #sentValid>
+    <div class="flex justify-center items-center text-6xl text-green-700 h-44">
+      <div>
+        <i class="lar la-check-circle"></i>mot de passe changé avec succes.
+      </div>
+       <!-- Material spinner for loading indication -->
+    </div>
+  </ng-template>

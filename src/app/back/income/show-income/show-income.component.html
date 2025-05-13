@@ -1,0 +1,34 @@
+<div class="container">
+    <h2>Income Details</h2>
+    
+    <div *ngIf="income">
+      <div class="card">
+        <div class="card-header">
+          <h3>Income Information</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>Amount:</strong> {{ income.amount | currency }}
+            </li>
+            <li class="list-group-item">
+              <strong>Date:</strong> {{ income.date | date:'yyyy-MM-dd' }}
+            </li>
+            <li class="list-group-item">
+              <strong>Source:</strong> {{ income.source }}
+            </li>
+            <li class="list-group-item">
+              <strong>Account:</strong> 
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <button class="btn btn-primary mt-3" (click)="goBack()">Back</button>
+    </div>
+  
+    <div *ngIf="!income">
+      <p>No income details available.</p>
+    </div>
+  </div>
+  

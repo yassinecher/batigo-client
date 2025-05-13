@@ -1,66 +1,215 @@
 <div class="container">
-    <h1>Commandes List</h1>
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm" 
+           placeholder="Search by details or status"
+           (input)="filterCommandes()">
+    <button *ngIf="searchTerm" (click)="clearSearch()" class="btn-clear-search" title="Clear search">
+      ×
+    </button>
+  </div>
 
-    <button (click)="toggleForm()" class="btn-toggle-form">{{ showForm ? 'Hide Form' : 'Add New Commande' }}</button>
+  <!-- Advanced Filters -->
+  <div class="advanced-filters">
+    <input type="date" [(ngModel)]="startDate" placeholder="Start Date">
+    <input type="date" [(ngModel)]="endDate" placeholder="End Date">
+    <select [(ngModel)]="selectedStatus">
+      <option value="">All Statuses</option>
+      <option>Pending</option>
+      <option>Processed</option>
+      <option>Shipped</option>
+    </select>
+    <select [(ngModel)]="selectedPriority" (change)="filterCommandesByPriority()">
+      <option value="">All Priorities</option>
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+    </select>
+    <button (click)="applyAdvancedFilters()" class="btn-apply-filters">Apply Filters</button>
+    <button (click)="clearAllFilters()" class="btn-clear-filters">Clear Filters</button>
+  </div>
 
-    <!-- Display List of Commandes -->
-    <div class="table-container">
-        <table class="commande-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Details</th>
-                    <th>Order Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let commande of commandes">
-                    <td>{{ commande.idcommande }}</td>
-                    <td>{{ commande.details }}</td>
-                    <td>{{ commande.orderdate }}</td>
-                    <td>{{ commande.status }}</td>
-                    <td>
-                        <button (click)="editCommande(commande)" class="btn-edit">Edit</button>
-                        <button (click)="onDeleteCommande(commande.idcommande)" class="btn-delete">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+  <!-- Statistics and Count -->
+  <div class="statistics-container">
+    <div class="statistics-box">
+      <h3>Commande Statistics</h3>
+      <p>Total Revenue: {{ commandeStatistics.totalRevenue | currency }}</p>
+      <p>Pending Commandes: {{ commandeStatistics.pendingCount }}</p>
+      <p>Completed Commandes: {{ commandeStatistics.completedCount }}</p>
     </div>
-
-    <!-- Form for Adding or Updating a Commande -->
-    <div class="form-container" *ngIf="showForm">
-        <h2>{{ selectedCommande ? 'Edit Commande' : 'Add New Commande' }}</h2>
-        <form #commandeForm="ngForm" (ngSubmit)="onSubmit()">
-
-            <!-- Details Field -->
-            <div class="form-group">
-                <label for="details">Details:</label>
-                <input type="text" id="details" name="details" [(ngModel)]="formCommande.details" required>
-            </div>
-
-            <!-- Order Date Field -->
-            <div class="form-group">
-                <label for="orderdate">Order Date:</label>
-                <input type="date" id="orderdate" name="orderdate" [(ngModel)]="formCommande.orderdate" required>
-            </div>
-
-            <!-- Status Field -->
-            <div class="form-group">
-                <label for="status">Status:</label>
-                <select id="status" name="status" [(ngModel)]="formCommande.status" required>
-                    <option value="Pending">Pending</option>
-                    <option value="Processed">Processed</option>
-                    <option value="Shipped">Shipped</option>
-                </select>
-            </div>
-
-            <div class="form-actions">
-                <button type="submit" class="btn-submit">{{ selectedCommande ? 'Update' : 'Add' }} Commande</button>
-                <button type="button" (click)="cancelForm()" class="btn-cancel">Cancel</button>
-            </div>
-        </form>
+    <div class="count-box">
+      <h3>Total Commandes</h3>
+      <p>{{ totalCommandesCount }}</p>
     </div>
+  </div>
+
+  <!-- Control Buttons -->
+  <div class="control-buttons">
+    <button (click)="toggleForm()" class="btn-toggle-form">
+      {{ showForm ? 'Hide Form' : 'Add New Commande' }}
+    </button>
+    <button (click)="speak('Bonjour, bienvenue sur la page Commande de wajdi ')" class="btn-listen">
+      Écouter
+    </button>
+    <button (click)="exportToCSV()" class="btn-export" title="Export to CSV">
+      Export to CSV
+    </button>
+    <button (click)="undo()" class="btn-undo" title="Undo" [disabled]="actionStack.length === 0">
+      Undo
+    </button>
+    <button (click)="redo()" class="btn-redo" title="Redo" [disabled]="undoneStack.length === 0">
+      Redo
+    </button>
+  </div>
+
+  <!-- Bulk Actions -->
+  <div class="bulk-actions" *ngIf="filteredCommandes.length > 0">
+    <label>
+      <input type="checkbox" [(ngModel)]="bulkSelectAll" (change)="toggleBulkSelection()">
+      Select All
+    </label>
+    <button (click)="deleteSelected()" class="btn-delete-selected" title="Delete Selected">
+      Delete Selected
+    </button>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    Loading commandes...
+  </div>
+
+  <!-- Commandes Table -->
+  <div class="table-container" *ngIf="!isLoading">
+    <table class="commande-table">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" [(ngModel)]="bulkSelectAll" (change)="toggleBulkSelection()">
+          </th>
+          <th (click)="sortData('details')">
+            Details 
+            <span *ngIf="sortColumn === 'details'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th (click)="sortData('orderdate')">
+            Order Date 
+            <span *ngIf="sortColumn === 'orderdate'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th (click)="sortData('status')">
+            Status 
+            <span *ngIf="sortColumn === 'status'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let commande of getPaginatedCommandes()">
+          <td>
+            <input type="checkbox" [(ngModel)]="commande.selected">
+          </td>
+          <td>{{ commande.details }}</td>
+          <td>{{ commande.orderdate | date:'mediumDate' }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="'status-' + commande.status.toLowerCase()">
+              {{ commande.status }}
+            </span>
+          </td>
+          <td>
+            <button (click)="editCommande(commande)" class="btn-edit" title="Edit"></button>
+            <button (click)="onDeleteCommande(commande.idcommande)" 
+                    class="btn-delete" title="Delete"></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination" *ngIf="filteredCommandes.length > itemsPerPage">
+      <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn-pagination">
+        ◀
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="btn-pagination">
+        ▶
+      </button>
+    </div>
+  </div>
+
+  <!-- Commande Form -->
+  <div class="form-container" *ngIf="showForm">
+    <h2>{{ selectedCommande ? 'Edit Commande' : 'Add New Commande' }}</h2>
+    <form #commandeForm="ngForm" (ngSubmit)="onSubmit(commandeForm)">
+      <!-- Details Field -->
+      <div class="form-group">
+        <label for="details">Details:</label>
+        <input type="text" id="details" name="details" 
+               [(ngModel)]="formCommande.details" #details="ngModel" required>
+        <div *ngIf="details.invalid && (details.touched || commandeForm.submitted)" 
+             class="error-message">
+          Details are required
+        </div>
+      </div>
+
+      <!-- Order Date Field -->
+      <div class="form-group">
+        <label for="orderdate">Order Date:</label>
+        <input type="date" id="orderdate" name="orderdate" 
+               [(ngModel)]="formCommande.orderdate" #orderdate="ngModel" 
+               [min]="minDate" required>
+        <div *ngIf="orderdate.invalid && (orderdate.touched || commandeForm.submitted)" 
+             class="error-message">
+          Valid date is required
+        </div>
+      </div>
+
+      <!-- Status Field -->
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select id="status" name="status" [(ngModel)]="formCommande.status" 
+                #status="ngModel" required>
+          <option value="Pending">Pending</option>
+          <option value="Processed">Processed</option>
+          <option value="Shipped">Shipped</option>
+        </select>
+        <div *ngIf="status.invalid && (status.touched || commandeForm.submitted)" 
+             class="error-message">
+          Please select a status
+        </div>
+      </div>
+
+      <!-- Priority Field -->
+      <div class="form-group">
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority" [(ngModel)]="formCommande.priority" 
+                #priority="ngModel" required>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <div *ngIf="priority.invalid && (priority.touched || commandeForm.submitted)" 
+             class="error-message">
+          Please select a priority
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">
+          {{ selectedCommande ? 'Update' : 'Add' }} Commande
+        </button>
+        <button type="button" (click)="cancelForm()" class="btn-cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Notification Message -->
+  <div *ngIf="message" class="message-box {{ messageType }}">
+    {{ message }}
+  </div>
 </div>

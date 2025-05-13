@@ -7,6 +7,8 @@ export interface Task {
   title: string;
   description: string;
   status: string;
+  dateEnd:Date
+  dateStart:Date
   workflowId?: number;
 }
 
@@ -14,7 +16,7 @@ export interface Task {
   providedIn: 'root'
 })
 export class TaskService {
-  private baseUrl = 'http://localhost:8080/api/tasks'; // Change this if your backend URL is different
+  private baseUrl = 'http://localhost:9090/server/api/tasks'; // Change this if your backend URL is different
 
   constructor(private http: HttpClient) {}
 

@@ -1,0 +1,37 @@
+<p *ngIf="isLoadingCategoryChart">Loading chart...</p>
+
+<div class="container mt-5">
+    <h2>Dashboard - Product Stats</h2>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h5>Total Number of Products</h5>
+            <p>{{ totalProducts }}</p>
+            <div style="height: 300px;">
+                <apx-chart [series]="totalProductsChartOptions.series" [chart]="totalProductsChartOptions.chart"
+                    [xaxis]="totalProductsChartOptions.xaxis" [colors]="totalProductsChartOptions.colors"></apx-chart>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h5>Total Quantity of All Products</h5>
+            <p>{{ totalQuantity }}</p>
+            <div style="height: 300px;">
+                <apx-chart [series]="totalQuantityChartOptions.series" [chart]="totalQuantityChartOptions.chart"
+                    [xaxis]="totalQuantityChartOptions.xaxis" [colors]="totalQuantityChartOptions.colors"></apx-chart>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-4">
+            <h5>Products by Category</h5>
+            <apx-chart *ngIf="!isLoadingCategoryChart" #productByCategoryChart
+                [series]="productByCategoryChartOptions.series" [chart]="productByCategoryChartOptions.chart"
+                [xaxis]="productByCategoryChartOptions.xaxis" [title]="productByCategoryChartOptions.title"
+                [colors]="productByCategoryChartOptions.colors"></apx-chart>
+        </div>
+
+        <div class="col-md-6 mt-4">
+            <h5>Most Popular Category: {{ mostPopularCategory }}</h5>
+        </div>
+    </div>
+</div>

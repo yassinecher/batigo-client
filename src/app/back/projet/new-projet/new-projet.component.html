@@ -1,0 +1,111 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header text-white">
+      <h2 class="mb-0">Create New Project</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+
+        <div class="mb-3">
+          <label for="nom" class="form-label">Project Name</label>
+          <input type="text" class="form-control" id="nom" formControlName="nom" required>
+          <div *ngIf="projectForm.get('nom')?.invalid && projectForm.get('nom')?.touched" class="text-danger">
+            Name is required and must be at least 3 characters.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" formControlName="description"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="dateDebut" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="dateDebut" formControlName="dateDebut" required>
+          <div *ngIf="projectForm.get('dateDebut')?.invalid && projectForm.get('dateDebut')?.touched" class="text-danger">
+            Start date is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="dateFinPrevue" class="form-label">Expected End Date</label>
+          <input type="date" class="form-control" id="dateFinPrevue" formControlName="dateFinPrevue" required>
+          <div *ngIf="projectForm.get('dateFinPrevue')?.invalid && projectForm.get('dateFinPrevue')?.touched" class="text-danger">
+            Expected end date is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="budget" class="form-label">Budget</label>
+          <input type="number" class="form-control" id="budget" formControlName="budget" required min="0">
+          <div *ngIf="projectForm.get('budget')?.invalid && projectForm.get('budget')?.touched" class="text-danger">
+            Budget is required and must be non-negative.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="etat" class="form-label">Status</label>
+          <select class="form-select" id="etat" formControlName="etat" required>
+            <option *ngFor="let etat of etats" [value]="etat">{{ etat }}</option>
+          </select>
+          <div *ngIf="projectForm.get('etat')?.invalid && projectForm.get('etat')?.touched" class="text-danger">
+            Status is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="responsable" class="form-label">Responsible</label>
+          <input type="text" class="form-control" id="responsable" formControlName="responsable" required>
+          <div *ngIf="projectForm.get('responsable')?.invalid && projectForm.get('responsable')?.touched" class="text-danger">
+            Responsible person is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="projetType" class="form-label">Project Type</label>
+          <select class="form-select" id="projetType" formControlName="projetType" required>
+            <option *ngFor="let type of projetTypes" [value]="type">{{ type }}</option>
+          </select>
+          <div *ngIf="projectForm.get('projetType')?.invalid && projectForm.get('projetType')?.touched" class="text-danger">
+            Project type is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="adresse" class="form-label">Address</label>
+          <input type="text" class="form-control" id="adresse" formControlName="adresse" required>
+          <div *ngIf="projectForm.get('adresse')?.invalid && projectForm.get('adresse')?.touched" class="text-danger">
+            Address is required.
+          </div>
+        </div>
+
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="isArchived" formControlName="isArchived">
+          <label class="form-check-label" for="isArchived">Archived</label>
+        </div>
+
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="isApproved" formControlName="isApproved">
+          <label class="form-check-label" for="isApproved">Approved</label>
+        </div>
+
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="isTerminate" formControlName="isTerminate">
+          <label class="form-check-label" for="isTerminate">Terminated</label>
+        </div>
+
+      
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary me-2" [disabled]="projectForm.invalid">Create Project</button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

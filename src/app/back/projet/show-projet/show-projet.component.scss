@@ -1,0 +1,14 @@
+.card {
+  border-radius: 10px;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.progress-bar {
+  transition: width 0.5s ease-in-out;
+}
+.badge {
+  padding: 5px 10px;
+  border-radius: 5px;
+}

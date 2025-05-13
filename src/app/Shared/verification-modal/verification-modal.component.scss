@@ -1,0 +1,96 @@
+/* === Modal Header === */
+.modal-header {
+    background-color: #0d6efd;
+    color: white;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .modal-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  /* === Close Button === */
+  .btn-close {
+    background-color: white;
+    border-radius: 50%;
+    opacity: 1;
+  }
+  
+  /* === Modal Body === */
+  .modal-body {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .modal-body p {
+    margin-bottom: 1rem;
+  }
+  
+  /* === Input Field === */
+  input.form-control {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s;
+  }
+  
+  input.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  }
+  
+  /* === Error Message === */
+  .text-danger {
+    font-size: 0.875rem;
+  }
+  
+  /* === Modal Footer === */
+  .modal-footer {
+    background-color: #f8f9fa;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 1rem 1.5rem;
+    border-top: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  
+  /* === Buttons === */
+  .btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+  
+  .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0b5ed7;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  /* === Modal Content Shadow === */
+  :host ::ng-deep .modal-content {
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  

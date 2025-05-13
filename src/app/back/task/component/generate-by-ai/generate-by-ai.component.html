@@ -1,0 +1,117 @@
+<div class="container mx-auto p-4">
+  <app-image-upload ></app-image-upload>
+  <!-- Metadata Form -->
+  <form [formGroup]="metadataForm" (ngSubmit)="onSubmit()" class="mb-6 p-4 bg-white rounded shadow">
+    <h2 class="text-lg font-bold mb-4">Architecture Plan Metadata</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="building_space" class="block text-sm font-medium text-gray-700">Building Space (sq ft)</label>
+        <input
+          id="building_space"
+          formControlName="building_space"
+          type="number"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          [ngClass]="{'border-red-500': metadataForm.get('building_space')?.invalid && metadataForm.get('building_space')?.touched}"
+        />
+        <p *ngIf="metadataForm.get('building_space')?.invalid && metadataForm.get('building_space')?.touched" class="text-red-500 text-sm">
+          Building space is required and must be non-negative
+        </p>
+      </div>
+      <div>
+        <label for="floors" class="block text-sm font-medium text-gray-700">Floors</label>
+        <input
+          id="floors"
+          formControlName="floors"
+          type="number"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          [ngClass]="{'border-red-500': metadataForm.get('floors')?.invalid && metadataForm.get('floors')?.touched}"
+        />
+        <p *ngIf="metadataForm.get('floors')?.invalid && metadataForm.get('floors')?.touched" class="text-red-500 text-sm">
+          Floors is required and must be non-negative
+        </p>
+      </div>
+      <div>
+        <label for="windows" class="block text-sm font-medium text-gray-700">Windows</label>
+        <input
+          id="windows"
+          formControlName="windows"
+          type="number"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          [ngClass]="{'border-red-500': metadataForm.get('windows')?.invalid && metadataForm.get('windows')?.touched}"
+        />
+        <p *ngIf="metadataForm.get('windows')?.invalid && metadataForm.get('windows')?.touched" class="text-red-500 text-sm">
+          Windows is required and must be non-negative
+        </p>
+      </div>
+      <div>
+        <label for="doors" class="block text-sm font-medium text-gray-700">Doors</label>
+        <input
+          id="doors"
+          formControlName="doors"
+          type="number"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          [ngClass]="{'border-red-500': metadataForm.get('doors')?.invalid && metadataForm.get('doors')?.touched}"
+        />
+        <p *ngIf="metadataForm.get('doors')?.invalid && metadataForm.get('doors')?.touched" class="text-red-500 text-sm">
+          Doors is required and must be non-negative
+        </p>
+      </div>
+      <div>
+        <label for="stairs" class="block text-sm font-medium text-gray-700">Stairs</label>
+        <input
+          id="stairs"
+          formControlName="stairs"
+          type="number"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          [ngClass]="{'border-red-500': metadataForm.get('stairs')?.invalid && metadataForm.get('stairs')?.touched}"
+        />
+        <p *ngIf="metadataForm.get('stairs')?.invalid && metadataForm.get('stairs')?.touched" class="text-red-500 text-sm">
+          Stairs is required and must be non-negative
+        </p>
+      </div>
+    </div>
+    <div class="mt-4">
+      <button
+        type="submit"
+        [disabled]="metadataForm.invalid || isLoading"
+        class="bg-blue-500 text-black px-4 py-2 rounded disabled:bg-gray-400"
+      >
+        Submit 
+      </button>
+    </div>
+  </form>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="mt-4 text-center">
+    <p class="text-blue-600">Sending data to webhook...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="mt-4 p-4 bg-red-100 text-red-700 rounded">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Webhook Response as Cards -->
+  <div *ngIf="webhookResponse.length > 0" class="mt-4">
+    <h2 class="text-lg font-bold mb-4">Construction Tasks</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let task of webhookResponse" class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+        <h3 class="text-md font-semibold text-gray-800">{{ task.name }}</h3>
+        <p class="text-sm text-gray-600 mt-1"><strong>Task ID:</strong> {{ task.taskId }}</p>
+        <p class="text-sm text-gray-600 mt-1"><strong>Description:</strong> {{ task.description }}</p>
+        <p class="text-sm text-gray-600 mt-1"><strong>Duration:</strong> {{ task.durationDays }} days</p>
+        <p class="text-sm text-gray-600 mt-1">
+          <strong>Dependencies:</strong>
+          <span *ngIf="task.dependencies.length > 0">{{ task.dependencies.join(', ') }}</span>
+          <span *ngIf="task.dependencies.length === 0">None</span>
+        </p>
+        <button (click)="onSubmit1(task)">Add this Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Message (when no results yet) -->
+  <p *ngIf="!isLoading && !errorMessage && webhookResponse.length === 0" class="mt-4 text-green-600">
+    Generate-by-AI works! Enter metadata and submit to the webhook.
+  </p>
+</div>

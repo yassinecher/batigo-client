@@ -1,0 +1,11 @@
+<div class="container mt-4">
+    <h2 class="mb-4">{{categoryToUpdate?"Modifier Catégorie": "Ajouter une Catégorie"}}</h2>
+    <form (ngSubmit)="saveCategory()" class="card p-4 shadow-sm">
+        <div class="mb-3">
+            <label class="form-label">Nom de la catégorie</label>
+            <input type="text" [(ngModel)]="category.nom" name="nom" class="form-control " required minlength="3"
+                maxlength="100" />
+        </div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
+</div>

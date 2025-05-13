@@ -1,0 +1,118 @@
+<app-navbar></app-navbar>
+<div class="view-projets-container container py-4">
+    <h2 class="text-center my-4">Project Management</h2>
+
+    <!-- Toggle Active/Archived Projects + Create Button -->
+    <div class="text-center mb-4">
+        <button class="btn btn-info me-2" (click)="toggleArchivedView()">
+      {{ showArchived ? 'View Active Projects' : 'View Archived Projects' }}
+    </button>
+        <button type="button" class="btn btn-primary" routerLink="/createproject">
+      <i class="fas fa-plus"></i> Create Project
+    </button>
+    </div>
+
+    <!-- Filter Projects by Name and State -->
+    <div class="text-center mb-4">
+        <input type="text" class="form-control d-inline-block w-auto me-2" placeholder="Search by Name" [formControl]="searchControl" />
+
+        <select class="form-control d-inline-block w-auto me-2" [(ngModel)]="filterEtat">
+      <option value="">Filter by State</option>
+      <option value="EN_COURS">EN COURS</option>
+      <option value="TERMINE">TERMINE</option>
+      <option value="ANNULE">ANNULE</option>
+    </select>
+        <button class="btn btn-secondary" (click)="loadProjetsByEtat(filterEtat)">Filter by State</button>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="loading text-center">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p>Loading projects...</p>
+    </div>
+
+    <!-- Active Projects (Vertical Cards) -->
+    <div *ngIf="!loading && !showArchived" class="vertical-cards">
+        <div class="card status-card shadow-sm" *ngFor="let projet of projets | paginate: { itemsPerPage: itemsPerPage, currentPage: activePage }">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="card-title fw-bold m-0">{{ projet.nom }}</h5>
+                    <div class="project-actions">
+                        <button class="btn btn-primary btn-sm" (click)="downloadPdf(projet.id!, projet.nom)">
+              <i class="fas fa-file-pdf"></i> Download PDF
+            </button>
+                        <button class="btn btn-primary btn-sm" routerLink="/updateproject/{{ projet.id }}">
+              <i class="fas fa-edit"></i> Update
+            </button>
+                        <button class="btn btn-primary btn-sm" (click)="archiveProjet(projet.id!)">
+              <i class="fas fa-archive"></i> Archive
+            </button>
+                        <button class="btn btn-primary btn-sm" routerLink="/projets/{{ projet.id }}/add-livrable">
+              <i class="fas fa-plus"></i> Add Livrable
+            </button>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <span class="status-badge" [ngClass]="{
+              'status-en-cours': projet.etat === 'EN_COURS',
+              'status-termine': projet.etat === 'TERMINE',
+              'status-annule': projet.etat === 'ANNULE'
+            }">
+            {{ projet.etat.replace('_', ' ') }}
+          </span>
+                </div>
+                <!-- Project Schedule Status -->
+                <div class="mt-2">
+                    <span class="badge" [ngClass]="{
+              'bg-success': projet.scheduleStatus === 'Ahead of Schedule ✅',
+              'bg-warning': projet.scheduleStatus === 'On Track ⚠️',
+              'bg-danger': projet.scheduleStatus === 'Behind Schedule ❌'
+            }">
+            {{ projet.scheduleStatus }}
+          </span>
+                </div>
+                <!-- Project Progress Bar -->
+                <div class="progress mt-3">
+                    <div class="progress-bar" role="progressbar" [style.width]="projet.progress + '%'" [attr.aria-valuenow]="projet.progress" aria-valuemin="0" aria-valuemax="100">
+                        {{ projet.progress }}%
+                    </div>
+                </div>
+                <!-- Progress Update Buttons -->
+                <div class="progress-steps mt-2 d-flex gap-2">
+                    <button *ngFor="let step of [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]" class="btn btn-outline-primary btn-sm" [class.active]="projet.progress === step" [disabled]="step < projet.progress" (click)="updateProgress(projet, step)">
+            {{ step }}%
+          </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Archived Projects (Vertical Cards) -->
+    <div *ngIf="showArchived" class="vertical-cards">
+        <div class="card status-card archived-card shadow-sm" *ngFor="let projet of archivedProjets | paginate: { itemsPerPage: itemsPerPage, currentPage: archivedPage }">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="card-title fw-bold m-0">{{ projet.nom }}</h5>
+                    <div class="project-actions">
+                        <button class="btn btn-primary btn-sm" (click)="downloadPdf(projet.id!, projet.nom)">
+              <i class="fas fa-file-pdf"></i> Download PDF
+            </button>
+                        <button class="btn btn-primary btn-sm" (click)="unarchiveProjet(projet.id!)">
+              <i class="fas fa-undo"></i> Unarchive
+            </button>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <span class="status-badge status-archived">ARCHIVED</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- viewprojet.component.html -->
+    <div class="custom-pagination">
+        <pagination-controls (pageChange)="activePage = $event"></pagination-controls>
+    </div>
+
+</div>
+<app-footer></app-footer>

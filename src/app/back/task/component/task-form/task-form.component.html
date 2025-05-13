@@ -1,5 +1,8 @@
-<div class="task-form-container">
-  <h2>Create Task</h2>
+<div class="modal-header">
+  <h5 class="modal-title">Add new Task </h5>
+  <button type="button" class="btn-close" (click)="close()"></button>
+</div>
+<div class="modal-body">
 
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -60,23 +63,39 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="dateMax">Max Date:</label>
-      <input type="date" id="dateMax" formControlName="dateMax">
-      <div class="error" *ngIf="taskForm.get('dateMax')?.invalid && taskForm.get('dateMax')?.touched">
+      <label for="dateStart">Date Start:</label>
+      <input type="datetime-local" id="dateStart" formControlName="dateStart">
+      <div class="error" *ngIf="taskForm.get('dateStart')?.invalid && taskForm.get('dateStart')?.touched">
         <span class="mb-1 me-2 badge font-medium bg-light-danger text-danger"> <small
-            *ngIf="taskForm.get('dateMax')?.hasError('required')">Max date is required.</small>
+            *ngIf="taskForm.get('dateStart')?.hasError('required')">Start date is required.</small>
 
         </span>
         <span class="mb-1 me-2 badge font-medium bg-light-danger text-danger"> <small
-            *ngIf="taskForm.get('dateMax')?.hasError('futureDate')">Max date must be in the future.</small>
+            *ngIf="taskForm.get('dateStart')?.hasError('futureDate')">Start date must be in the future.</small>
 
         </span>
 
       </div>
     </div>
+    <div class="form-group">
+      <label for="dateEnd">Date End:</label>
+      <input type="datetime-local" id="dateEnd" formControlName="dateEnd">
+      <div class="error" *ngIf="taskForm.get('dateEnd')?.invalid && taskForm.get('dateEnd')?.touched">
+        <span class="mb-1 me-2 badge font-medium bg-light-danger text-danger"> <small
+            *ngIf="taskForm.get('dateEnd')?.hasError('required')">End date is required.</small>
 
+        </span>
+        <span class="mb-1 me-2 badge font-medium bg-light-danger text-danger"> <small
+            *ngIf="taskForm.get('dateEnd')?.hasError('futureDate')">End date must be in the future.</small>
+
+        </span>
+
+      </div>
+    </div>
     <button type="submit" class="btn" [disabled]="taskForm.invalid">Create Task</button>
   </form>
 
-  <p *ngIf="message" class="message">{{ message }}</p>
+</div>
+<div class="modal-footer">
+  
 </div>

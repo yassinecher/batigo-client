@@ -1,0 +1,91 @@
+<div class="form-container">
+    <h2>Nouvel Incident</h2>
+    
+    <form [formGroup]="addIncidentForm" (submit)="onSubmit()" class="simple-form">
+      <!-- Titre de l'incident -->
+
+  
+      <!-- Description -->
+      <div class="form-group">
+        <label>Description :</label>
+        <textarea 
+          formControlName="description"
+          rows="4"
+          [class.invalid]="f['description'].invalid && f['description'].touched"></textarea>
+        <div class="error-msg" *ngIf="f['description'].errors?.['required'] && f['description'].touched">
+          * Ce champ est requis
+        </div>
+      </div>
+  
+      <!-- Date de l'incident -->
+      <div class="form-group">
+        <label>Date :</label>
+        <input 
+          type="date" 
+          formControlName="date"
+          [class.invalid]="f['date'].invalid && f['date'].touched">
+        <div class="error-msg" *ngIf="f['date'].errors?.['required'] && f['date'].touched">
+          * Date requise
+        </div>
+      </div>
+  
+  
+      <!-- Gravité de l'incident -->
+      <div class="form-group">
+        <label>Gravité :</label>
+        <select formControlName="gravite" [class.invalid]="f['gravite'].invalid && f['gravite'].touched">
+          <option value="" disabled>Choisir la gravité</option>
+          <option value="LEGER">Léger</option>
+          <option value="MOYEN">Moyen</option>
+          <option value="CRITIQUE">Critique</option>
+        </select>
+        <div class="error-msg" *ngIf="f['gravite'].errors?.['required'] && f['gravite'].touched">
+          * Ce champ est requis
+        </div>
+      </div>
+  
+      <!-- Etat de l'incident -->
+      <div class="form-group">
+        <label>Etat :</label>
+        <select formControlName="etat" [class.invalid]="f['etat'].invalid && f['etat'].touched">
+          <option value="" disabled>Choisir l'état</option>
+          <option value="EN_COURS">En cours</option>
+          <option value="RESOLU">Résolu</option>
+          <option value="EN_ATTENTE">En attente</option>
+        </select>
+        <div class="error-msg" *ngIf="f['etat'].errors?.['required'] && f['etat'].touched">
+          * Ce champ est requis
+        </div>
+      </div>
+  
+      <!-- Responsable de l'incident -->
+      <!-- <div class="form-group">
+        <label>Responsable :</label>
+        <input 
+          type="text" 
+          formControlName="responsable"
+          [class.invalid]="f['responsable'].invalid && f['responsable'].touched">
+        <div class="error-msg" *ngIf="f['responsable'].errors?.['required'] && f['responsable'].touched">
+          * Ce champ est requis
+        </div>
+      </div> -->
+  
+      <!-- Boutons -->
+      <div class="button-group">
+        <button 
+          type="button" 
+          class="btn cancel"
+          (click)="backToList()">
+          Annuler
+        </button>
+        
+        <button 
+          type="submit" 
+          class="btn submit"
+          [disabled]="!addIncidentForm.valid">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+  

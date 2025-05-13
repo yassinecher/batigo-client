@@ -33,7 +33,7 @@ export class LivraisonService {
 
   // Add a new livraison
   addLivraison(livraison: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/addlivraison`, livraison, { headers: this.getHeaders() });
+    return this.http.post<any>(`${this.baseUrl}/addlivraison/${livraison.commande.idcommande}`, livraison, { headers: this.getHeaders() });
   }
 
   // Modify an existing livraison

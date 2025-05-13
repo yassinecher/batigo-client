@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h2 class="mb-4">📊 Project Statistics</h2>
+
+  <!-- Affichage des statistiques -->
+  <div *ngIf="totalIncomes !== undefined && totalExpenses !== undefined" class="row text-center">
+    <div class="col-md-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5>Total Incomes</h5>
+          <p class="text-success fs-4">{{ totalIncomes | currency :'tn':'TND' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5>Total Expenses</h5>
+          <p class="text-danger fs-4">{{ totalExpenses | currency }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5>Balance</h5>
+          <p class="text-primary fs-4">{{ balance | currency }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message de chargement -->
+  <div *ngIf="chartOptions.series.length === 0" class="text-center mt-4">
+    <p class="text-muted">Loading statistics...</p>
+  </div>
+
+  <!-- Graphique circulaire -->
+  <div *ngIf="chartOptions.series.length > 0" class="mt-5 chart-container">
+    <apx-chart 
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [labels]="chartOptions.labels"
+      [dataLabels]="chartOptions.dataLabels"
+      [legend]="chartOptions.legend">
+    </apx-chart>
+  </div>
+</div>

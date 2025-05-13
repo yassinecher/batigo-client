@@ -1,0 +1,72 @@
+<div class="financial-dashboard">
+  <div class="dashboard-header">
+    <h2>Performance Financière</h2>
+    <button class="refresh-btn" (click)="refreshData()">
+      <span class="refresh-icon">↻</span> Actualiser
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <span>Chargement des données...</span>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-state">
+    <span class="error-icon">⚠️</span>
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="performances.length > 0" class="performance-table-container">
+    <table class="performance-table">
+      <thead>
+        <tr>
+          <th>Projet</th>
+          <th>Score</th>
+          <th>Revenus totaux</th>
+          <th>Dépenses totales</th>
+          <th>Bénéfice net</th>
+          <th>Détails transactions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of performances">
+          <td class="project-name">{{ project.nomDuProjet }}</td>
+          <td class="project-score">{{ project.scoreDePerformance | percent:'1.0-0' }}</td>
+          <td class="total-income">{{ getTotal(project.incomes) | currency:'EUR':'symbol':'1.0-0' }}</td>
+          <td class="total-expense">{{ getTotal(project.expenses) | currency:'EUR':'symbol':'1.0-0' }}</td>
+          <td class="net-profit" [class.positive]="project.beneficeNet >= 0" [class.negative]="project.beneficeNet < 0">
+            {{ project.beneficeNet | currency:'EUR':'symbol':'1.0-0' }}
+          </td>
+          <td class="transaction-details">
+            <div class="transactions-group">
+              <div class="income-details">
+                <strong>Revenus:</strong>
+                <ul>
+                  <li *ngFor="let income of project.incomes">{{ income | currency:'EUR':'symbol':'1.0-0' }}</li>
+                </ul>
+              </div>
+              <div class="expense-details">
+                <strong>Dépenses:</strong>
+                <ul>
+                  <li *ngFor="let expense of project.expenses">{{ expense | currency:'EUR':'symbol':'1.0-0' }}</li>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+   
+   
+  <div *ngIf="!loading && performances.length === 0 && !errorMessage" class="empty-state">
+    <span class="info-icon">ℹ️</span>
+    Aucune donnée de performance disponible
+  </div>
+  
+  <hr>
+  <button class="export-btn" (click)="exportToPDF()">
+    📄 Exporter PDF
+  </button>
+  
+</div>

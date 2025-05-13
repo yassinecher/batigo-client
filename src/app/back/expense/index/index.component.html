@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+      <h2 class="mb-0">Liste des expenses</h2>
+    </div>
+    <div class="card-body">
+      
+      <!-- Barre de recherche avec icône -->
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="bi bi-search"></i></span> <!-- Icône Bootstrap -->
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Rechercher..." 
+          [(ngModel)]="searchText" 
+          (input)="filterExpenses()">
+      </div>
+
+      <table class="table table-striped table-hover">
+        <thead class="table-dark text-uppercase text-center">
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Solde</th>
+            <th>SOURCE</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expense of filteredExpenses | paginate: { itemsPerPage: 3, currentPage: currentPage }" class="text-center">
+            <td>{{ expense.id }}</td>
+            <td>{{ expense.date | date:'yyyy-MM-dd' }}</td>
+            <td>{{ expense.amount }} TND</td>
+            <td>{{ expense.source }}</td>
+            <td>
+              <a class="btn btn-success" [routerLink]="['/dashboard/expense/', expense.id]">Show</a>
+              <a class="btn btn-warning mx-2" [routerLink]="['/dashboard/expense/edit', expense.id]">Edit</a>
+              <button (click)="onDelete(expense.id)" class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
+    </div>
+  </div>
+  <a class="btn btn-secondary mt-3" [routerLink]="['/dashboard/expense/new']">New Expense</a>
+</div>

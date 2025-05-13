@@ -16,6 +16,7 @@ interface AuthResponse {
   providedIn: 'root',
 })
 export class AuthenticationService {
+
   private apiUrl = `${environment.apiUrl}api/v1/auth`;
 
   constructor(private http: HttpClient) {}
@@ -43,4 +44,17 @@ export class AuthenticationService {
   logout(): void {
     localStorage.removeItem('user');
   }
+
+  sendResetEmail(email: any) {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+  sendVerificationCode(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/send-verification-code`, { email });
+  }
+  
+  verifyEmailCode(email: string, code: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/verify-code`, { email, code });
+  }
+  
 }

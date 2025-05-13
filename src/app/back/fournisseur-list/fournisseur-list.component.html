@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <button class="btn btn-success m-4" (click)="generatePDF()">
+        <i class="fa fa-file-pdf "></i> Télécharger Document
+      </button>
+
+      <div class="card-body">
+        <h4 class="card-title">Supplier List</h4>
+        <h5 class="card-subtitle text-muted">Details</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle text-nowrap">
+            <thead>
+              <tr>
+                <th class="text-dark font-medium fs-4">#</th>
+                <th class="text-dark font-medium fs-4">Name</th>
+                <th class="text-dark font-medium fs-4">Address</th>
+                <th class="text-dark font-medium fs-4">Mail</th>
+                <th class="text-dark font-medium fs-4">Phone Number</th>
+                <th class="text-dark font-medium fs-4">Matricule</th>
+                <th class="text-dark font-medium fs-4">Creation Date</th>
+                <th class="text-dark font-medium fs-4">Status</th>
+                <th class="text-dark font-medium fs-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fournisseur of fournisseurs; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ fournisseur.nom }}</td>
+                <td>{{ fournisseur.adresse }}</td>
+                <td>{{ fournisseur.email }}</td>
+                <td>{{ fournisseur.tel }}</td>
+                <td>{{ fournisseur.matricule }}</td>
+                <td>{{ fournisseur.date_creation | date }}</td>
+                <td>{{ fournisseur.statut }}</td>
+                <td>
+                  <button class="btn btn-warning" (click)="editFournisseur(fournisseur.idF)">
+                    <i class="fa fa-edit"></i> Edit
+                  </button>
+                  <button class="btn btn-danger" (click)="deleteFournisseur(fournisseur.idF)">
+                    <i class="fa fa-trash"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Contenu à exporter en PDF -->
+        <div id="pdf-content" style="display: none;">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Matricule</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fournisseur of fournisseurs">
+                <td>{{ fournisseur.nom }}</td>
+                <td>{{ fournisseur.adresse }}</td>
+                <td>{{ fournisseur.email }}</td>
+                <td>{{ fournisseur.tel }}</td>
+                <td>{{ fournisseur.matricule }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

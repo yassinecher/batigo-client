@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Task, TaskService } from '../../data-access/task.service';
 import { Router } from '@angular/router';
+import { WorkflowService } from '../../data-access/workflow.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
   selector: 'app-task-list',
@@ -10,7 +13,7 @@ import { Router } from '@angular/router';
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
 
-  constructor(private taskService: TaskService,private router:Router) {}
+  constructor( private modalService: NgbModal,private taskService: TaskService,private workflowService:WorkflowService ,private router:Router) {}
 
   ngOnInit() {
     this.loadTasks();
@@ -23,7 +26,12 @@ export class TaskListComponent implements OnInit {
   }
 
   addTask() {
-  this.router.navigate(["/task/new"])
+     const modalRef =this.modalService.open(TaskFormComponent);
+               modalRef.componentInstance.title = "Registration";
+               modalRef.componentInstance.message ="Your account has been created! Please wait for admin confirmation." ;
+               modalRef.result.then(() => {
+               
+               });
   }
 
   deleteTask(id: number) {

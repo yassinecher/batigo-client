@@ -1,0 +1,68 @@
+<div class="container py-5">
+    <div class="section-title text-center">
+        <h1 class="display-4 text-primary">Livrables (Admin)</h1>
+        <p class="lead">Gérez les livrables et modifiez leur statut</p>
+    </div>
+
+    <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
+        {{ errorMessage }}
+    </div>
+
+    <div *ngIf="!isLoading && livrables.length > 0" class="table-responsive">
+        <table class="table table-hover livrable-table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nom</th>
+                    <th>Type</th>
+                    <th>Statut</th>
+                    <th>Date Remise Prévue</th>
+                    <th>Date Remise Réelle</th>
+                    <th>Overdue</th>
+                    <!-- New column -->
+                    <th>Commentaire</th>
+                    <th>Projet</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let livrable of livrables">
+                    <td>{{ livrable.nom }}</td>
+                    <td>{{ livrable.type }}</td>
+                    <td>
+                        <select class="form-select statut-dropdown" [(ngModel)]="livrable.statut" (change)="updateStatus(livrable, $event)">
+                <option *ngFor="let status of statutOptions" [value]="status">
+                  {{ status }}
+                </option>
+              </select>
+                    </td>
+                    <td>{{ livrable.dateRemisePrevue | date: 'yyyy-MM-dd' }}</td>
+                    <td>{{ livrable.dateRemiseReelle ? (livrable.dateRemiseReelle | date: 'yyyy-MM-dd') : 'N/A' }}</td>
+                    <td>
+                        <span *ngIf="livrable.overdue" class="badge bg-danger">Overdue</span>
+                        <span *ngIf="!livrable.overdue" class="badge bg-success">On Time</span>
+                    </td>
+                    <td>{{ livrable.commentaire || 'No comment' }}</td>
+                    <td>{{ livrable.projet?.nom || 'N/A' }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary me-2" (click)="editLivrable(livrable.id)">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+                        <button class="btn btn-sm btn-danger" (click)="deleteLivrable(livrable.id)">
+                <i class="fas fa-times"></i>
+              </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p *ngIf="!isLoading && livrables.length === 0" class="text-center text-muted">
+        Aucun livrable trouvé.
+    </p>
+</div>

@@ -32,6 +32,7 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
+                "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               
               "src/assets/scss/style.scss",
               "src/styles.scss"
@@ -96,7 +97,7 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",  "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "styles": [
               "src/styles.css"
@@ -106,5 +107,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "33792ca4-b2cb-4337-b61d-9b5a26c0d9b9"
   }
 }

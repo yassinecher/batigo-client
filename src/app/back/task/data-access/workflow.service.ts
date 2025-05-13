@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 
 export class WorkflowService {
-  private apiUrl = 'http://localhost:8080/api/workflows';
+  private apiUrl = 'http://localhost:9090/server/api/workflows';
 
   constructor(private http: HttpClient) {}
 
@@ -17,8 +17,8 @@ export class WorkflowService {
     return this.http.get<Workflow[]>(this.apiUrl);
   }
 
-  createWorkflow(workflow: Workflow): Observable<Workflow> {
-    return this.http.post<Workflow>(this.apiUrl, workflow);
+  createWorkflow(workflow: Workflow): Observable<any> {
+    return this.http.post<any>(this.apiUrl, workflow);
   }
 
   deleteWorkflow(id: number): Observable<any> {

@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title">Vérification de l'email</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
+  </div>
+  <div class="modal-body">
+    <p>Un code de vérification a été envoyé à <strong>{{ email }}</strong>. Veuillez le saisir ci-dessous :</p>
+    <input type="text" [(ngModel)]="code" class="form-control" placeholder="Code de vérification" />
+    <div *ngIf="error" class="text-danger mt-2">{{ error }}</div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    <button class="btn btn-primary" (click)="verify()">Vérifier</button>
+  </div>
+  
